@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EduUpdates Rwanda – Education News, Scholarships & Resources</title>
+<meta name="description" content="Rwanda's most trusted source for education news, scholarships, learning resources, and inspiring stories across Rwanda and the Great Lakes region."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════ */
+:root{
+  /* brand */
+  --g:#16803C; --gd:#0D5C2D; --gl:#22c55e; --gp:#dcfce7;
+  --blue:#1d4ed8; --purple:#7c3aed; --orange:#ea580c;
+  --teal:#0d9488; --red:#dc2626; --yt:#FF0000;
+  /* neutrals */
+  --ink:#0f172a; --ink2:#1e293b; --muted:#475569; --muted2:#94a3b8;
+  --border:#e2e8f0; --surface:#fff; --s2:#f8fafc; --s3:#f1f5f9;
+  /* admin accent */
+  --ac:#0284c7; --acd:#0369a1;
+  /* type */
+  --body:'Plus Jakarta Sans',sans-serif;
+  --display:'Fraunces',Georgia,serif;
+  /* radii */
+  --r:12px; --rl:20px; --rx:28px; --rs:8px;
+  /* shadows */
+  --sh0:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
+  --sh1:0 4px 16px rgba(15,23,42,.08),0 2px 6px rgba(15,23,42,.05);
+  --sh2:0 12px 40px rgba(15,23,42,.12),0 4px 12px rgba(15,23,42,.07);
+  --sh3:0 24px 64px rgba(15,23,42,.16),0 8px 20px rgba(15,23,42,.1);
+  /* layout */
+  --hh:70px; --sw:256px; --ah:64px;
+}
+[data-theme="dark"]{
+  --ink:#f0f6ff; --ink2:#e2eaf6; --muted:#94a3b8; --muted2:#64748b;
+  --border:#1e2d3d; --surface:#0d1826; --s2:#111f2f; --s3:#162234;
+  --gp:rgba(22,128,60,.18);
+  --sh0:0 1px 3px rgba(0,0,0,.25); --sh1:0 4px 16px rgba(0,0,0,.35);
+  --sh2:0 12px 40px rgba(0,0,0,.45); --sh3:0 24px 64px rgba(0,0,0,.55);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;height:100%}
+body{font-family:var(--body);font-size:15px;line-height:1.65;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;min-height:100%}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;color:var(--ink)}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--body);cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font-family:var(--body);color:var(--ink)}
+img{max-width:100%;display:block}
+p{margin:0}
+
+/* ═══════════════════════════════════════════════════
+   VIEW SWITCHER
+═══════════════════════════════════════════════════ */
+#pubSite{display:block}
+#adminApp{display:none;height:100vh;flex-direction:column;overflow:hidden}
+#adminApp.on{display:flex}
+#adminLogin{position:fixed;inset:0;background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);z-index:9999;display:none;align-items:center;justify-content:center}
+#adminLogin.show{display:flex}
+
+/* ═══════════════════════════════════════════════════
+   PUBLIC — LAYOUT HELPERS
+═══════════════════════════════════════════════════ */
+.container{width:100%;max-width:1240px;margin:0 auto;padding:0 28px}
+.section{padding:96px 0}
+.sa{background:var(--s2)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--g);margin-bottom:10px;font-family:var(--body)}
+.sec-hdr{margin-bottom:52px}
+.sec-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:48px}
+.sec-row h2{font-size:clamp(22px,3vw,34px)}
+.page{display:none;min-height:calc(100vh - var(--hh))}
+.page.active{display:block}
+
+/* ═══════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════ */
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hh);background:rgba(255,255,255,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:500;transition:box-shadow .3s,background .3s}
+[data-theme="dark"] .hdr{background:rgba(13,24,38,.94)}
+.hdr.scrolled{box-shadow:var(--sh1)}
+.nav-wrap{height:var(--hh);display:flex;align-items:center;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer}
+.logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--g),var(--gd));display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0}
+.logo-text{display:flex;flex-direction:column;line-height:1.2}
+.logo-name{font-family:var(--display);font-weight:700;font-size:16px;color:var(--ink)}
+.logo-tag{font-size:10px;font-weight:600;color:var(--g);letter-spacing:.05em}
+.pub-nav{display:flex;align-items:center;gap:2px;flex:1}
+.nl{padding:7px 12px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--muted);transition:color .2s,background .2s;cursor:pointer}
+.nl:hover,.nl.active{color:var(--g);background:var(--gp)}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.theme-btn{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted);border:1.5px solid var(--border);transition:color .2s,border-color .2s}
+.theme-btn:hover{color:var(--g);border-color:var(--g)}
+.yt-sm{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:999px;background:var(--yt);color:#fff;font-size:12.5px;font-weight:600;box-shadow:0 4px 14px rgba(255,0,0,.28);transition:transform .2s,box-shadow .2s;text-decoration:none}
+.yt-sm:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,0,0,.4)}
+.admin-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:opacity .2s,transform .2s}
+.admin-pill:hover{opacity:.88;transform:translateY(-1px)}
+.mob-btn{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px;color:var(--ink)}
+.mob-btn span{display:block;width:22px;height:2px;background:currentColor;border-radius:2px;transition:transform .3s,opacity .3s}
+.mob-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-btn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav{display:none;flex-direction:column;padding:12px 24px 16px;background:var(--surface);border-top:1px solid var(--border);gap:3px}
+.mob-nav.open{display:flex}
+.mob-nav button{padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500;color:var(--muted);text-align:left;transition:color .2s,background .2s}
+.mob-nav button:hover{color:var(--g);background:var(--gp)}
+
+/* ═══════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:999px;font-size:14px;font-weight:600;transition:transform .2s,box-shadow .2s,background .2s;cursor:pointer;border:none;font-family:var(--body);text-decoration:none}
+.btn:hover{transform:translateY(-2px)}
+.btn-g{background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;box-shadow:0 4px 18px rgba(22,128,60,.32)}
+.btn-g:hover{box-shadow:0 8px 28px rgba(22,128,60,.48)}
+.btn-yt{background:var(--yt);color:#fff;box-shadow:0 4px 16px rgba(255,0,0,.28)}
+.btn-yt:hover{box-shadow:0 8px 24px rgba(255,0,0,.42)}
+.btn-outline{background:transparent;border:2px solid var(--border);color:var(--ink)}
+.btn-outline:hover{border-color:var(--g);color:var(--g)}
+.btn-white{background:#fff;color:var(--gd);font-weight:700;box-shadow:var(--sh1)}
+.btn-ghost-w{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.3);color:#fff}
+.btn-ghost-w:hover{background:rgba(255,255,255,.18)}
+.btn-sm{padding:8px 18px;font-size:13px}
+.btn-full{width:100%;justify-content:center}
+.badge{display:inline-block;padding:3px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.05em}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#0a2e18 0%,#0d3d24 40%,#0c2a44 100%);padding-top:var(--hh)}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.04) 1px,transparent 0);background-size:32px 32px}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;animation:orbFloat 8s ease-in-out infinite}
+.o1{width:700px;height:700px;top:-300px;right:-150px;background:rgba(22,200,80,.12)}
+.o2{width:500px;height:500px;bottom:-200px;left:-100px;background:rgba(29,78,216,.12);animation-delay:-3s}
+.o3{width:300px;height:300px;top:40%;left:35%;background:rgba(124,58,237,.08);animation-delay:-6s}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:80px 28px 100px;position:relative;z-index:1;max-width:1240px;margin:0 auto;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;font-size:12px;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:24px;backdrop-filter:blur(8px)}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--gl);box-shadow:0 0 8px var(--gl);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.5}}
+.hero h1{font-size:clamp(38px,5.5vw,72px);color:#fff;margin-bottom:22px;line-height:1.08}
+.hero h1 em{font-style:italic;color:var(--gl)}
+.hero-desc{color:rgba(255,255,255,.76);font-size:16px;line-height:1.78;max-width:540px;margin-bottom:36px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.hero-stats{display:flex;align-items:center;gap:32px}
+.hs strong{display:block;font-size:26px;font-weight:800;color:#fff;font-family:var(--display);line-height:1}
+.hs span{font-size:11.5px;color:rgba(255,255,255,.55);font-weight:500;margin-top:3px;display:block}
+.hs-div{width:1px;height:40px;background:rgba(255,255,255,.15)}
+/* counter animation */
+.counter{display:inline-block}
+/* hero visual */
+.hero-visual{position:relative}
+.hero-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--rl);overflow:hidden;padding:7px;backdrop-filter:blur(12px)}
+.yt-embed{width:100%;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:#000}
+.yt-embed iframe{width:100%;height:100%;border:none;display:block}
+.float-pill{position:absolute;background:rgba(15,23,42,.7);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:10px 18px;backdrop-filter:blur(16px);display:flex;align-items:center;gap:9px;color:#fff;font-size:13px;font-weight:600;white-space:nowrap;box-shadow:var(--sh2)}
+.fp1{bottom:-16px;left:-24px;animation:fpA 4s ease-in-out infinite}
+.fp2{top:18px;right:-24px;animation:fpB 4s ease-in-out 1.5s infinite}
+.fp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+@keyframes fpA{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes fpB{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+/* ═══════════════════════════════════════════════════
+   NEWS CARDS
+═══════════════════════════════════════════════════ */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.news-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh0);transition:transform .3s cubic-bezier(.25,.46,.45,.94),box-shadow .3s;cursor:pointer;display:flex;flex-direction:column}
+.news-card:hover{transform:translateY(-6px);box-shadow:var(--sh2)}
+.nc-img{height:200px;position:relative;overflow:hidden;background:var(--s3)}
+.nc-img-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.news-card:hover .nc-img-bg{transform:scale(1.07)}
+.nc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,30,.65) 0%,rgba(10,20,30,.1) 55%,transparent 100%)}
+.nc-tag{position:absolute;top:14px;left:14px;z-index:1}
+.nc-meta-img{position:absolute;bottom:14px;left:14px;z-index:1;color:#fff;font-size:12px;opacity:.85}
+.nc-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1;gap:10px}
+.nc-meta{font-size:12px;color:var(--muted2);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nc-meta-dot{width:3px;height:3px;border-radius:50%;background:var(--muted2)}
+.news-card h3{font-size:17px;line-height:1.35;color:var(--ink)}
+.news-card p{font-size:13.5px;color:var(--muted);line-height:1.68;flex:1}
+.nc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:14px;border-top:1px solid var(--border)}
+.nc-read{font-size:13px;font-weight:700;color:var(--g);display:flex;align-items:center;gap:5px;transition:gap .2s}
+.news-card:hover .nc-read{gap:9px}
+.nc-time{font-size:12px;color:var(--muted2)}
+
+/* ═══════════════════════════════════════════════════
+   NEWS DETAIL
+═══════════════════════════════════════════════════ */
+.nd-wrap{max-width:760px;margin:0 auto;padding:52px 28px 96px}
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--g);cursor:pointer;padding:8px 0;margin-bottom:32px;transition:gap .2s}
+.back-btn:hover{gap:12px}
+.nd-hero{height:400px;border-radius:var(--rl);overflow:hidden;margin-bottom:36px;position:relative}
+.nd-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.nd-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,30,.5),transparent 60%)}
+.nd-meta{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.nd-title{font-size:clamp(26px,4vw,42px);margin-bottom:20px;line-height:1.15}
+.nd-excerpt{font-size:17px;color:var(--muted);line-height:1.8;font-style:italic;margin-bottom:30px;padding-bottom:30px;border-bottom:2px solid var(--border)}
+.nd-body{font-size:16px;color:var(--ink2);line-height:1.9;white-space:pre-line}
+.nd-body p{margin-bottom:18px}
+.nd-cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+.nd-province{margin-top:32px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;display:flex;align-items:center;gap:12px}
+
+/* ═══════════════════════════════════════════════════
+   VIDEO CARDS
+═══════════════════════════════════════════════════ */
+.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.vid-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh0);transition:transform .3s,box-shadow .3s;cursor:pointer}
+.vid-card:hover{transform:translateY(-5px);box-shadow:var(--sh2)}
+.vt{height:185px;position:relative;overflow:hidden;background:#0f172a}
+.vt-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s}
+.vid-card:hover .vt-bg{transform:scale(1.06)}
+.vt-overlay{position:absolute;inset:0;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:background .3s}
+.vid-card:hover .vt-overlay{background:rgba(0,0,0,.15)}
+.play-ring{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.2);border:2.5px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:transform .3s,background .3s}
+.vid-card:hover .play-ring{transform:scale(1.12);background:rgba(255,255,255,.3)}
+.vt-dur{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.78);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:.03em}
+.vt-feat{position:absolute;top:10px;left:10px}
+.vb{padding:16px 18px 20px}
+.vb-cat{font-size:11px;font-weight:700;color:var(--yt);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.vb h3{font-size:14.5px;font-weight:600;line-height:1.4;color:var(--ink);margin-bottom:8px}
+.vb p{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vb-meta{font-size:12px;color:var(--muted2);display:flex;gap:10px}
+
+/* ═══════════════════════════════════════════════════
+   SCHOLARSHIP CARDS
+═══════════════════════════════════════════════════ */
+.sch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px}
+.sch-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh0);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.sch-card:hover{transform:translateY(-5px);box-shadow:var(--sh2)}
+.sc-img{height:160px;position:relative;overflow:hidden;background:var(--s3)}
+.sc-img-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s}
+.sch-card:hover .sc-img-bg{transform:scale(1.06)}
+.sc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,30,.7),transparent 70%)}
+.sc-status{position:absolute;top:14px;right:14px;z-index:1}
+.sc-body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.sc-title{font-size:16px;font-weight:700;line-height:1.3;color:var(--ink)}
+.sc-provider{font-size:13px;color:var(--muted);font-weight:500}
+.sc-desc{font-size:13.5px;color:var(--muted);line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.sc-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0}
+.sc-item{background:var(--s2);border-radius:8px;padding:10px 12px}
+.sc-item-lbl{font-size:10.5px;color:var(--muted2);font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.sc-item-val{font-size:13px;font-weight:600;color:var(--ink)}
+.sc-amount{color:var(--g);font-size:14px;font-weight:700}
+.st-open{background:#dcfce7;color:#166534}
+.st-soon{background:#fef9c3;color:#854d0e}
+.st-closed{background:#fee2e2;color:#991b1b}
+[data-theme="dark"] .st-open{background:rgba(22,101,52,.3)}
+[data-theme="dark"] .st-soon{background:rgba(133,77,14,.3)}
+[data-theme="dark"] .st-closed{background:rgba(153,27,27,.3)}
+/* filter bar */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;align-items:center}
+.filter-pill{padding:8px 18px;border-radius:999px;font-size:13px;font-weight:600;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;font-family:var(--body)}
+.filter-pill:hover{border-color:var(--g);color:var(--g)}
+.filter-pill.active{background:var(--g);border-color:var(--g);color:#fff}
+
+/* ═══════════════════════════════════════════════════
+   RESOURCE CARDS
+═══════════════════════════════════════════════════ */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.res-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh0);transition:transform .3s,box-shadow .3s,border-color .3s;cursor:pointer;display:flex;flex-direction:column}
+.res-card:hover{transform:translateY(-5px);box-shadow:var(--sh2);border-color:var(--g)}
+.rc-cover{height:140px;position:relative;overflow:hidden;background:var(--s3);display:flex;align-items:center;justify-content:center}
+.rc-cover-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s}
+.res-card:hover .rc-cover-bg{transform:scale(1.06)}
+.rc-icon-big{font-size:42px;position:relative;z-index:1}
+.rc-pdf-badge{position:absolute;top:10px;right:10px;background:#dc2626;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:.05em}
+.rc-body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.rc-cat{font-size:10.5px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.1em}
+.rc-body h3{font-size:15.5px;line-height:1.35;color:var(--ink)}
+.rc-body p{font-size:13.5px;color:var(--muted);line-height:1.65;flex:1}
+.rc-footer{display:flex;gap:8px;margin-top:auto;padding-top:12px;border-top:1px solid var(--border)}
+.rc-btn{flex:1;padding:9px 12px;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s;cursor:pointer;font-family:var(--body)}
+.rc-btn-view{background:var(--gp);color:var(--g);border:none}
+.rc-btn-view:hover{background:var(--g);color:#fff}
+.rc-btn-dl{background:var(--s3);color:var(--ink);border:1px solid var(--border)}
+.rc-btn-dl:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ═══════════════════════════════════════════════════
+   GALLERY
+═══════════════════════════════════════════════════ */
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:14px}
+.gi{border-radius:var(--r);overflow:hidden;position:relative;cursor:pointer;background:var(--s3)}
+.gi-w2{grid-column:span 2}
+.gi-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .55s cubic-bezier(.25,.46,.45,.94)}
+.gi:hover .gi-bg{transform:scale(1.08)}
+.gi-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 60%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:16px}
+.gi:hover .gi-overlay{opacity:1}
+.gi-cap{color:#fff;font-size:13px;font-weight:600}
+.gi-cap small{display:block;font-size:11px;opacity:.75;font-weight:400;margin-top:2px}
+/* lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.lightbox.open{display:flex}
+.lb-img{max-width:92vw;max-height:80vh;object-fit:contain;border-radius:var(--r);box-shadow:var(--sh3)}
+.lb-nav{display:flex;align-items:center;gap:20px}
+.lb-btn{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;font-family:var(--body)}
+.lb-btn:hover{background:rgba(255,255,255,.25)}
+.lb-counter{color:rgba(255,255,255,.65);font-size:13px;font-weight:500;min-width:60px;text-align:center}
+.lb-close{position:absolute;top:20px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.lb-caption{color:rgba(255,255,255,.8);font-size:14px;text-align:center;max-width:600px;padding:0 20px}
+
+/* ═══════════════════════════════════════════════════
+   PDF VIEWER MODAL
+═══════════════════════════════════════════════════ */
+.pdf-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:8000;display:none;flex-direction:column}
+.pdf-modal.open{display:flex}
+.pdf-modal-hdr{background:#0f172a;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-shrink:0}
+.pdf-modal-hdr h3{color:#fff;font-size:15px;font-family:var(--body);font-weight:600}
+.pdf-modal-hdr .pm-actions{display:flex;gap:10px;align-items:center}
+.pdf-modal iframe{flex:1;width:100%;border:none}
+.pm-close{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;flex-shrink:0}
+
+/* ═══════════════════════════════════════════════════
+   SCHOLARSHIP BAND, CTA, FOOTER (same as before, cleaned)
+═══════════════════════════════════════════════════ */
+.sb-section{background:linear-gradient(135deg,#082818,var(--gd),#0c2a44);padding:88px 0}
+.sb-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+.sb-left{color:#fff}
+.sb-left h2{font-size:clamp(26px,3.5vw,42px);color:#fff;margin-bottom:18px}
+.sb-left>p{color:rgba(255,255,255,.76);font-size:15.5px;line-height:1.78;margin-bottom:32px}
+.sb-feats{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.sb-feat{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.84);font-size:14px}
+.sb-check{width:18px;height:18px;border-radius:50%;background:rgba(34,197,94,.2);border:1px solid var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gl);font-size:10px}
+.sb-card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:var(--rl);padding:32px 28px;backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:16px}
+.sb-card h3{font-size:22px;color:#fff}
+.sb-card p{font-size:14.5px;color:rgba(255,255,255,.72);line-height:1.68}
+
+/* About */
+.about-hero{min-height:520px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#082818,#0d3d24,#0c2a44);padding-top:var(--hh)}
+.ah-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.25}
+.ah-content{position:relative;z-index:1;padding:100px 0 90px;color:#fff;max-width:780px}
+.ah-content h1{font-size:clamp(34px,5vw,60px);color:#fff;margin:14px 0}
+.ah-content p{color:rgba(255,255,255,.74);font-size:16.5px;line-height:1.78}
+.mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:30px 26px;box-shadow:var(--sh0);transition:transform .3s,box-shadow .3s}
+.mc:hover{transform:translateY(-6px);box-shadow:var(--sh2)}
+.mc-num{font-size:52px;font-weight:800;font-family:var(--display);color:var(--g);opacity:.18;line-height:1;margin-bottom:12px}
+.mc h3{font-size:20px;margin-bottom:10px}
+.mc p{font-size:14px;color:var(--muted);line-height:1.68}
+/* team */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.tc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh0);transition:transform .3s,box-shadow .3s}
+.tc:hover{transform:translateY(-6px);box-shadow:var(--sh2)}
+.tc-photo{height:230px;position:relative;overflow:hidden;background:var(--s3)}
+.tc-photo-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s}
+.tc:hover .tc-photo-bg{transform:scale(1.06)}
+.tc-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,20,30,.6),transparent 60%)}
+.tc-body{padding:20px 22px 24px}
+.tc-role{font-size:11.5px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.tc h3{font-size:18px;margin-bottom:6px}
+.tc p{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:14px}
+.tc-socials{display:flex;gap:8px}
+.tc-soc{width:32px;height:32px;border-radius:8px;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .2s;cursor:pointer}
+.tc-soc:hover{background:var(--gp)}
+/* values */
+.val-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.vcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:26px 22px;text-align:center;box-shadow:var(--sh0);transition:transform .3s}
+.vcard:hover{transform:translateY(-5px)}
+.vcard-icon{font-size:36px;margin-bottom:14px}
+.vcard h3{font-size:17px;margin-bottom:8px}
+.vcard p{font-size:13.5px;color:var(--muted);line-height:1.65}
+/* impact stats */
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
+.istat{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:28px 22px;text-align:center;box-shadow:var(--sh0)}
+.istat-icon{font-size:32px;margin-bottom:12px}
+.istat-num{font-size:34px;font-weight:800;font-family:var(--display);color:var(--g);margin-bottom:6px}
+.istat-lbl{font-size:13px;color:var(--muted);font-weight:500}
+/* history */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:0;position:relative}
+.tl-item::before{content:'';position:absolute;left:40px;top:24px;bottom:-24px;width:2px;background:var(--border)}
+.tl-item:last-child::before{display:none}
+.tl-year{font-size:13px;font-weight:700;color:var(--g);padding-top:20px;text-align:center;position:relative}
+.tl-year::after{content:'';position:absolute;right:-8px;top:26px;width:16px;height:16px;border-radius:50%;background:var(--g);border:3px solid var(--surface)}
+.tl-content{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin:12px 0 24px 20px}
+.tl-content h4{font-size:16px;margin-bottom:6px}
+.tl-content p{font-size:14px;color:var(--muted)}
+
+/* Contact */
+.contact-hero{background:linear-gradient(135deg,#082818,#0d3d24,#0c2a44);padding:72px 0 60px;position:relative;overflow:hidden}
+.contact-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 0);background-size:28px 28px}
+.contact-hero-inner{position:relative;z-index:1;color:#fff}
+.contact-hero h1{font-size:clamp(30px,4.5vw,54px);color:#fff;margin-bottom:14px}
+.contact-hero p{color:rgba(255,255,255,.72);font-size:16px;max-width:560px;line-height:1.75}
+.contact-layout{display:grid;grid-template-columns:380px 1fr;gap:44px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:16px}
+.ci-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:22px 24px;box-shadow:var(--sh0);display:flex;align-items:flex-start;gap:16px;transition:box-shadow .2s}
+.ci-card:hover{box-shadow:var(--sh1)}
+.ci-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ci-icon-g{background:var(--gp);color:var(--g)}
+.ci-icon-b{background:#dbeafe;color:var(--blue)}
+.ci-icon-o{background:#ffedd5;color:var(--orange)}
+.ci-icon-p{background:#ede9fe;color:var(--purple)}
+[data-theme="dark"] .ci-icon-b,.ci-icon-o,.ci-icon-p{filter:brightness(.8)}
+.ci-card h4{font-size:13.5px;font-weight:700;margin-bottom:5px}
+.ci-card p,.ci-card a{font-size:14px;color:var(--muted);line-height:1.6}
+.ci-card a:hover{color:var(--g)}
+.ci-hours{margin-top:6px;font-size:13px;color:var(--muted)}
+.maps-frame{width:100%;height:220px;border:none;border-radius:var(--r);overflow:hidden;display:block}
+.contact-form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:36px 32px;box-shadow:var(--sh1);display:flex;flex-direction:column;gap:20px}
+.cform-title{font-size:22px;margin-bottom:4px}
+.cform-sub{font-size:14px;color:var(--muted)}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{font-size:13px;font-weight:600;color:var(--ink2)}
+.fg input,.fg textarea,.fg select{padding:12px 16px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--s2);color:var(--ink);font-size:14px;transition:border-color .2s,box-shadow .2s;resize:vertical;font-family:var(--body)}
+.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(22,128,60,.1);background:var(--surface)}
+.fg .err{border-color:var(--red)!important}
+.form-note{font-size:12.5px;color:var(--muted2);display:flex;align-items:center;gap:6px}
+.form-alert{border-radius:var(--rs);padding:13px 16px;font-size:14px;font-weight:600;display:none;align-items:center;gap:10px}
+.form-alert.show{display:flex}
+.form-ok{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+.form-bad{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+
+/* CTA BAND */
+.cta-band{background:linear-gradient(135deg,var(--g),var(--gd) 50%,#1d4ed8);padding:80px 0;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:rgba(255,255,255,.05);top:-250px;right:-100px}
+.cta-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.cta-text h2{font-size:clamp(24px,3.5vw,38px);color:#fff;margin-bottom:12px}
+.cta-text p{color:rgba(255,255,255,.78);font-size:15.5px;max-width:540px}
+.cta-acts{display:flex;gap:14px;flex-shrink:0;flex-wrap:wrap}
+
+/* PAGE HERO BAND */
+.ph{background:linear-gradient(135deg,#082818,#0d3d24,#0c2a44);padding:80px 0 68px;position:relative;overflow:hidden}
+.ph::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 0);background-size:28px 28px}
+.ph-inner{position:relative;z-index:1}
+.ph-inner h1{font-size:clamp(32px,5vw,56px);color:#fff;margin-bottom:14px}
+.ph-inner p{color:rgba(255,255,255,.7);font-size:15.5px;max-width:580px;line-height:1.75}
+
+/* PILLARS */
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:30px 26px;box-shadow:var(--sh0);transition:transform .3s,box-shadow .3s}
+.pc:hover{transform:translateY(-7px);box-shadow:var(--sh2)}
+.pc-icon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:22px}
+.pi-g{background:var(--gp);color:var(--g)}
+.pi-b{background:#dbeafe;color:var(--blue)}
+.pi-o{background:#ffedd5;color:var(--orange)}
+.pi-p{background:#ede9fe;color:var(--purple)}
+[data-theme="dark"] .pi-b{background:rgba(29,78,216,.2)}
+[data-theme="dark"] .pi-o{background:rgba(234,88,12,.2)}
+[data-theme="dark"] .pi-p{background:rgba(124,58,237,.2)}
+.pc h3{font-size:18px;margin-bottom:10px}
+.pc p{font-size:14px;color:var(--muted);line-height:1.68}
+
+/* FOOTER */
+.footer{background:var(--ink2);color:rgba(255,255,255,.68);padding-top:68px}
+[data-theme="dark"] .footer{background:#06101a}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr;gap:64px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+.fb-brand{max-width:340px}
+.fb-brand p{font-size:14px;color:rgba(255,255,255,.58);line-height:1.72;margin:18px 0 24px}
+.socials{display:flex;gap:10px}
+.soc-btn{width:38px;height:38px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.1);transition:background .2s,color .2s;text-decoration:none;cursor:pointer;font-size:16px}
+.soc-btn:hover{background:var(--yt);color:#fff;border-color:var(--yt)}
+.footer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.fl h4{color:#fff;font-size:13px;font-weight:700;margin-bottom:16px;font-family:var(--body)}
+.fl button{padding:4px 0;font-size:13.5px;color:rgba(255,255,255,.52);text-align:left;transition:color .2s;display:block;width:100%;margin-bottom:6px}
+.fl button:hover{color:var(--gl)}
+.footer-bottom{padding:20px 0}
+.footer-bottom .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.footer-bottom p{font-size:13px;color:rgba(255,255,255,.35)}
+
+/* SPINNER */
+.spin{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--g);border-radius:50%;animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lc{display:flex;justify-content:center;align-items:center;padding:60px}
+.empty-state{text-align:center;padding:64px 20px;color:var(--muted)}
+.es-icon{font-size:52px;margin-bottom:14px}
+.es-icon+p{font-size:15px}
+
+/* ═══════════════════════════════════════════════════
+   ADMIN CMS STYLES
+═══════════════════════════════════════════════════ */
+.lb-box{background:#fff;border-radius:var(--rx);padding:48px 42px;width:100%;max-width:420px;box-shadow:0 25px 60px rgba(0,0,0,.35)}
+.lb-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.lb-logo-ic{width:46px;height:46px;background:linear-gradient(135deg,var(--ac),var(--acd));border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px}
+.lb-logo-txt h3{font-size:16px;margin-bottom:2px;font-family:var(--body);color:#0f172a;font-weight:700}
+.lb-logo-txt span{font-size:11px;color:#64748b;font-family:var(--body);font-weight:500}
+.lb-box h2{font-size:24px;margin-bottom:4px;font-family:var(--body);font-weight:700;color:#0f172a}
+.lb-box>p{color:#64748b;font-size:13.5px;margin-bottom:28px}
+.lb-err{background:#fee2e2;color:#991b1b;border-radius:9px;padding:11px 16px;font-size:13px;display:none;margin-bottom:14px}
+.lb-err.show{display:block}
+/* admin layout */
+.adm-hdr{height:var(--ah);background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;padding:0 26px;gap:16px;flex-shrink:0;z-index:50}
+.adm-logo{font-family:var(--body);font-weight:800;font-size:17px;color:#0f172a;display:flex;align-items:center;gap:9px}
+.adm-logo span{background:linear-gradient(135deg,var(--ac),var(--acd));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.adm-badge{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--body)}
+.adm-sp{flex:1}
+.adm-user{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;font-family:var(--body)}
+.adm-av{width:34px;height:34px;background:linear-gradient(135deg,var(--ac),var(--acd));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
+.adm-logout,.adm-view{padding:7px 14px;border-radius:8px;border:1px solid #e2e8f0;font-size:12px;font-weight:600;color:#64748b;transition:all .2s;cursor:pointer;background:none;font-family:var(--body)}
+.adm-logout:hover{border-color:#dc2626;color:#dc2626}
+.adm-view:hover{border-color:var(--ac);color:var(--ac)}
+/* sidebar */
+.adm-body{display:flex;flex:1;overflow:hidden}
+.adm-side{width:var(--sw);background:#fff;border-right:1px solid #e2e8f0;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.sb-sec{padding:16px 12px 8px}
+.sb-lbl{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;padding:0 10px;margin-bottom:7px;font-family:var(--body)}
+.ni{display:flex;align-items:center;gap:11px;width:100%;padding:10px 14px;border-radius:10px;font-size:13.5px;font-weight:500;color:#64748b;transition:all .18s;text-align:left;border:none;background:none;cursor:pointer;margin-bottom:3px;font-family:var(--body)}
+.ni:hover{background:#f1f5f9;color:#1e293b}
+.ni.active{background:rgba(2,132,199,.1);color:var(--ac);font-weight:600}
+.ni .nio{width:20px;text-align:center;font-size:16px;flex-shrink:0}
+.ni .nic{margin-left:auto;background:#f1f5f9;color:#94a3b8;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
+.ni.active .nic{background:rgba(2,132,199,.15);color:var(--ac)}
+.sb-foot{margin-top:auto;padding:16px 12px;border-top:1px solid #e2e8f0}
+/* admin main */
+.adm-main{flex:1;overflow-y:auto;padding:32px 36px;background:#f8fafc;font-family:var(--body)}
+.ap{display:none}
+.ap.active{display:block}
+/* admin page header */
+.aph{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.aph h2{font-size:26px;margin-bottom:5px;font-family:var(--body);color:#0f172a;font-weight:800}
+.aph p{color:#64748b;font-size:13.5px}
+/* stat cards */
+.ast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:16px;margin-bottom:32px}
+.ast{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.04);cursor:pointer;transition:box-shadow .2s,transform .2s}
+.ast:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);transform:translateY(-2px)}
+.ast-icon{font-size:28px;margin-bottom:11px}
+.ast-num{font-size:32px;font-weight:800;color:var(--ac);font-family:var(--body);margin-bottom:4px}
+.ast-lbl{font-size:12px;color:#64748b;font-weight:500}
+/* quick actions */
+.aqg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-bottom:32px}
+.aqc{background:#fff;border:2px dashed #e2e8f0;border-radius:14px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;transition:all .2s;text-align:center}
+.aqc:hover{border-color:var(--ac);background:rgba(2,132,199,.03)}
+.aqc-icon{font-size:28px}
+.aqc h4{font-size:13px;font-weight:700;color:#1e293b}
+.aqc p{font-size:12px;color:#64748b}
+/* table */
+.atbl{background:#fff;border:1px solid #e2e8f0;border-radius:var(--rl);box-shadow:0 2px 8px rgba(0,0,0,.04);overflow:hidden}
+.atbl-tb{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #e2e8f0;gap:12px;flex-wrap:wrap}
+.atbl-tb h3{font-size:16px;font-weight:700;color:#1e293b}
+.a-search{padding:9px 16px;border-radius:10px;border:1.5px solid #e2e8f0;font-size:13px;color:#1e293b;background:#f8fafc;outline:none;transition:border-color .2s;width:220px;font-family:var(--body)}
+.a-search:focus{border-color:var(--ac)}
+.atbl table{width:100%;border-collapse:collapse;font-size:13.5px}
+.atbl thead th{padding:12px 18px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#94a3b8;background:#f8fafc;border-bottom:1px solid #e2e8f0}
+.atbl tbody tr{border-bottom:1px solid #f1f5f9;transition:background .15s}
+.atbl tbody tr:last-child{border-bottom:none}
+.atbl tbody tr:hover{background:#f8fafc}
+.atbl td{padding:14px 18px;vertical-align:middle;color:#1e293b}
+.td-main{font-weight:600;max-width:260px}
+.td-sub{font-size:12px;color:#64748b;font-weight:400;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.td-acts{display:flex;gap:7px;white-space:nowrap}
+/* admin badges */
+.ab{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700}
+.ab-open{background:#dcfce7;color:#166534}
+.ab-soon{background:#fef9c3;color:#854d0e}
+.ab-closed{background:#fee2e2;color:#991b1b}
+.ab-news{background:rgba(2,132,199,.1);color:var(--ac)}
+.ab-feat{background:#fef9c3;color:#92400e}
+/* admin buttons */
+.abtn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:12.5px;font-weight:600;transition:all .18s;cursor:pointer;border:none;font-family:var(--body)}
+.abtn-p{background:var(--ac);color:#fff;box-shadow:0 2px 10px rgba(2,132,199,.25)}
+.abtn-p:hover{background:var(--acd)}
+.abtn-g{background:#dcfce7;color:#166534}
+.abtn-g:hover{background:#166534;color:#fff}
+.abtn-d{background:#fee2e2;color:#991b1b}
+.abtn-d:hover{background:#dc2626;color:#fff}
+.abtn-gh{background:#f1f5f9;color:#1e293b;border:1px solid #e2e8f0}
+.abtn-gh:hover{border-color:var(--ac);color:var(--ac);background:#fff}
+.abtn-lg{padding:11px 22px;font-size:14px;border-radius:999px}
+/* admin modal */
+.am-ov{position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.am-ov.open{display:flex}
+.am{background:#fff;border-radius:var(--rx);width:100%;max-width:660px;max-height:92vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.3);animation:amIn .22s ease}
+@keyframes amIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.am-hdr{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;border-bottom:1px solid #e2e8f0;position:sticky;top:0;background:#fff;z-index:1}
+.am-hdr h3{font-size:19px;font-weight:700;font-family:var(--body);color:#0f172a}
+.am-close{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:22px;line-height:1;border:none;background:none;cursor:pointer;transition:background .2s}
+.am-close:hover{background:#f1f5f9;color:#1e293b}
+.am-body{padding:28px;display:flex;flex-direction:column;gap:20px}
+.am-foot{padding:18px 28px;border-top:1px solid #e2e8f0;display:flex;gap:11px;justify-content:flex-end;background:#fff;position:sticky;bottom:0}
+/* form */
+.af{display:flex;flex-direction:column;gap:7px}
+.af label{font-size:12px;font-weight:700;color:#1e293b;text-transform:uppercase;letter-spacing:.07em;font-family:var(--body)}
+.af input,.af textarea,.af select{padding:11px 15px;border-radius:10px;border:1.5px solid #e2e8f0;background:#f8fafc;color:#1e293b;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s;resize:vertical;width:100%;font-family:var(--body)}
+.af input:focus,.af textarea:focus,.af select:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(2,132,199,.1);background:#fff}
+.af input.aerr,.af textarea.aerr{border-color:#dc2626!important}
+.af-hint{font-size:11px;color:#94a3b8;margin-top:3px}
+.af2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.af3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
+.chk-row{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;cursor:pointer;color:#1e293b;font-family:var(--body)}
+.chk-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--ac)}
+/* swatch */
+.sw-row{display:flex;align-items:center;gap:9px}
+.sw{width:36px;height:36px;border-radius:9px;border:1.5px solid #e2e8f0;flex-shrink:0;transition:background .2s}
+/* grad preview */
+.gp-prev{height:60px;border-radius:12px;margin-top:9px;transition:background .3s;display:flex;align-items:flex-end;padding:10px}
+.gp-prev span{color:#fff;font-size:12.5px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+/* image preview */
+.ip-wrap{margin-top:9px;border-radius:11px;overflow:hidden;border:1.5px solid #e2e8f0;background:#f1f5f9;display:none;min-height:70px;align-items:center;justify-content:center}
+.ip-wrap.show{display:flex}
+.ip-wrap img{max-width:100%;max-height:180px;object-fit:contain}
+/* yt preview */
+.yp-wrap{margin-top:9px;border-radius:11px;overflow:hidden;display:none}
+.yp-wrap.show{display:block}
+.yp-wrap iframe{width:100%;height:168px;border:none;display:block}
+/* drag drop zone */
+.dd-zone{border:2.5px dashed #e2e8f0;border-radius:14px;padding:32px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:#f8fafc}
+.dd-zone:hover,.dd-zone.drag-over{border-color:var(--ac);background:rgba(2,132,199,.04)}
+.dd-icon{font-size:36px;margin-bottom:10px}
+.dd-txt{font-size:14px;font-weight:600;color:#1e293b;margin-bottom:5px}
+.dd-sub{font-size:12.5px;color:#94a3b8}
+.dd-zone input[type=file]{display:none}
+/* pdf preview in admin */
+.pdf-prev-wrap{background:#f1f5f9;border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;margin-top:9px;display:none}
+.pdf-prev-wrap.show{display:flex}
+.pdf-prev-icon{font-size:28px;flex-shrink:0}
+.pdf-prev-info{font-size:13px;color:#1e293b}
+.pdf-prev-info span{display:block;font-size:11.5px;color:#64748b;margin-top:2px}
+/* progress bar */
+.prog-bar{background:#e2e8f0;border-radius:999px;height:6px;overflow:hidden;margin-top:9px;display:none}
+.prog-bar.show{display:block}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--ac),var(--acd));border-radius:999px;transition:width .3s;width:0%}
+/* toast */
+#toast{position:fixed;bottom:28px;right:28px;padding:13px 24px;border-radius:14px;font-size:13.5px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:9999;transform:translateY(90px);opacity:0;transition:all .32s;pointer-events:none;font-family:var(--body);display:flex;align-items:center;gap:9px}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.success{background:#16803C;color:#fff}
+#toast.error{background:#dc2626;color:#fff}
+#toast.info{background:#0f172a;color:#fff}
+/* msg modal */
+.amsg-f{background:#f8fafc;border-radius:10px;padding:15px;font-size:14px;line-height:1.75;color:#1e293b}
+/* loading bar */
+#loadBar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--g),var(--gl));border-radius:0 3px 3px 0;z-index:9998;transition:width .3s;width:0%;display:none}
+#loadBar.active{display:block}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media(max-width:1100px){.pillars{grid-template-columns:repeat(2,1fr)}.val-grid{grid-template-columns:repeat(2,1fr)}.mission-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:960px){.hero-inner{grid-template-columns:1fr;padding:60px 28px 80px}.hero-visual{display:none}.sb-inner{grid-template-columns:1fr}.contact-layout{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:44px}.gal-grid{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.gi-w2{grid-column:span 2}}
+@media(max-width:720px){.section{padding:68px 0}.pub-nav{display:none}.hdr-right .yt-sm{display:none}.mob-btn{display:flex}.pillars{grid-template-columns:1fr}.frow2{grid-template-columns:1fr}.cta-inner{flex-direction:column;text-align:center}.footer-links{grid-template-columns:1fr 1fr}.sch-grid{grid-template-columns:1fr}.af2,.af3{grid-template-columns:1fr}.adm-side{display:none}.mission-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.gal-grid{grid-template-columns:1fr;grid-auto-rows:200px}.gi-w2{grid-column:span 1}.footer-links{grid-template-columns:1fr}.val-grid{grid-template-columns:1fr}.news-grid{grid-template-columns:1fr}.hero-stats{gap:18px}}
+</style>
+</head>
+<body>
+<div id="loadBar"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PUBLIC SITE
+═══════════════════════════════════════════════════ -->
+<div id="pubSite">
+
+<!-- HEADER -->
+<header class="hdr" id="siteHdr">
+  <div class="container nav-wrap">
+    <button class="logo" onclick="go('home')">
+      <div class="logo-icon">📚</div>
+      <div class="logo-text">
+        <span class="logo-name">EduUpdates</span>
+        <span class="logo-tag">Rwanda · Kivu</span>
+      </div>
+    </button>
+    <nav class="pub-nav" id="pubNav">
+      <button class="nl active" data-p="home"         onclick="go('home')">Home</button>
+      <button class="nl"        data-p="news"         onclick="go('news')">News</button>
+      <button class="nl"        data-p="videos"       onclick="go('videos')">Videos</button>
+      <button class="nl"        data-p="resources"    onclick="go('resources')">Resources</button>
+      <button class="nl"        data-p="scholarships" onclick="go('scholarships')">Scholarships</button>
+      <button class="nl"        data-p="gallery"      onclick="go('gallery')">Gallery</button>
+      <button class="nl"        data-p="about"        onclick="go('about')">About</button>
+      <button class="nl"        data-p="contact"      onclick="go('contact')">Contact</button>
+    </nav>
+    <div class="hdr-right">
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg id="thSun" viewBox="0 0 24 24" fill="none" width="18" height="18" style="display:none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg id="thMoon" viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" rel="noopener" class="yt-sm">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5a3 3 0 00-2.1 2.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+        Subscribe
+      </a>
+      <button class="admin-pill" onclick="openAdminLogin()">⚙ Admin CMS</button>
+    </div>
+    <button class="mob-btn" id="mobBtn" onclick="toggleMob()"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob-nav" id="mobNav">
+    <button onclick="go('home')">🏠 Home</button>
+    <button onclick="go('news')">📰 News</button>
+    <button onclick="go('videos')">🎥 Videos</button>
+    <button onclick="go('resources')">📖 Resources</button>
+    <button onclick="go('scholarships')">🎓 Scholarships</button>
+    <button onclick="go('gallery')">🖼 Gallery</button>
+    <button onclick="go('about')">ℹ About</button>
+    <button onclick="go('contact')">✉ Contact</button>
+    <button onclick="openAdminLogin()" style="color:#7c3aed;font-weight:700">⚙ Admin CMS</button>
+  </div>
+</header>
+
+<!-- PAGE: HOME -->
+<div id="p-home" class="page active" style="padding-top:var(--hh)">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge"><span class="badge-dot"></span>Rwanda &amp; Great Lakes Education Hub</div>
+        <h1><em>Empowering</em> Learners<br>Across <span style="color:var(--gl)">Kivu</span> &amp; Beyond</h1>
+        <p class="hero-desc">Your trusted source for education news, scholarship opportunities, school updates, learning resources, and inspiring stories from Rwanda and the Great Lakes region.</p>
+        <div class="hero-actions">
+          <button class="btn btn-g" onclick="go('news')">📰 Latest Updates</button>
+          <button class="btn btn-ghost-w" onclick="go('scholarships')">🎓 Scholarships</button>
+          <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" class="btn btn-yt">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5a3 3 0 00-2.1 2.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+            YouTube
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hs"><strong><span class="counter" data-target="10400" id="cSubs">0</span>+</strong><span>Subscribers</span></div>
+          <div class="hs-div"></div>
+          <div class="hs"><strong><span class="counter" data-target="527" id="cVids">0</span></strong><span>Videos</span></div>
+          <div class="hs-div"></div>
+          <div class="hs"><strong><span class="counter" data-target="5" id="cProvs">0</span></strong><span>Provinces</span></div>
+          <div class="hs-div"></div>
+          <div class="hs"><strong><span class="counter" data-target="94" id="cSchs">0</span>+</strong><span>Scholarships</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="yt-embed">
+            <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=educationupdatesrwanda&rel=0" title="EduUpdates Rwanda" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="float-pill fp1"><span class="fp-dot" style="background:#22c55e;box-shadow:0 0 6px #22c55e"></span>🎓 Scholarship Alerts</div>
+        <div class="float-pill fp2"><span class="fp-dot" style="background:#f59e0b;box-shadow:0 0 6px #f59e0b"></span>🔴 Live Updates</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-hdr"><p class="eyebrow">What We Cover</p><h2 style="font-size:clamp(26px,3.5vw,40px)">Four Focus Areas Serving Education in Rwanda</h2></div>
+      <div class="pillars">
+        <div class="pc"><div class="pc-icon pi-g">📰</div><h3>News &amp; Updates</h3><p>Latest from Rwanda's Ministry of Education, university admissions, national exams, and school policies — verified and timely.</p></div>
+        <div class="pc"><div class="pc-icon pi-b">🎓</div><h3>Scholarships</h3><p>Local and international scholarships tracked daily — eligibility, deadlines, amounts, and direct apply links for Rwandan students.</p></div>
+        <div class="pc"><div class="pc-icon pi-o">🎥</div><h3>Video Resources</h3><p>Educational videos, exam prep tutorials, student testimonials, and recorded lectures from our growing YouTube channel.</p></div>
+        <div class="pc"><div class="pc-icon pi-p">🤝</div><h3>Community</h3><p>Connecting students, teachers, and families across Kivu and beyond with shared resources and mutual support.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Preview -->
+  <section class="section sa">
+    <div class="container">
+      <div class="sec-row"><div><p class="eyebrow">Latest Updates</p><h2>Education News from Rwanda</h2></div><button class="btn btn-outline btn-sm" onclick="go('news')">View All →</button></div>
+      <div id="homeNewsGrid" class="news-grid"><div class="lc"><div class="spin"></div></div></div>
+    </div>
+  </section>
+
+  <!-- Videos Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-row"><div><p class="eyebrow">Video Content</p><h2>Watch. Learn. Share.</h2></div>
+        <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" class="btn btn-yt btn-sm">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5a3 3 0 00-2.1 2.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+          All Videos
+        </a>
+      </div>
+      <div id="homeVideosGrid" class="vid-grid"><div class="lc"><div class="spin"></div></div></div>
+    </div>
+  </section>
+
+  <!-- Scholarship Band -->
+  <section class="sb-section">
+    <div class="container"><div class="sb-inner">
+      <div class="sb-left">
+        <p class="eyebrow" style="color:var(--gl)">Don't Miss Out</p>
+        <h2>Scholarship &amp; Opportunity Alerts</h2>
+        <p>We track and share every major scholarship, fellowship, and funding opportunity — local, regional, and international — so Rwandan students never miss a deadline.</p>
+        <div class="sb-feats">
+          <div class="sb-feat"><span class="sb-check">✓</span>Government scholarships</div>
+          <div class="sb-feat"><span class="sb-check">✓</span>International opportunities</div>
+          <div class="sb-feat"><span class="sb-check">✓</span>University bursaries</div>
+          <div class="sb-feat"><span class="sb-check">✓</span>Application guidance</div>
+          <div class="sb-feat"><span class="sb-check">✓</span>Deadline reminders</div>
+          <div class="sb-feat"><span class="sb-check">✓</span>Eligibility checks</div>
+        </div>
+      </div>
+      <div class="sb-card">
+        <div style="font-size:48px">🎓</div>
+        <h3>Get Scholarship Alerts</h3>
+        <p>Subscribe to our YouTube channel and enable notifications — be the first to know about every new scholarship and deadline.</p>
+        <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" class="btn btn-yt btn-full">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5a3 3 0 00-2.1 2.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+          Subscribe Now — It's Free
+        </a>
+        <button class="btn btn-ghost-w btn-full" onclick="go('scholarships')">View All Scholarships</button>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- Resources Preview -->
+  <section class="section sa">
+    <div class="container">
+      <div class="sec-row"><div><p class="eyebrow">Study Resources</p><h2>Tools &amp; Materials for Students</h2></div><button class="btn btn-outline btn-sm" onclick="go('resources')">All Resources →</button></div>
+      <div id="homeResGrid" class="res-grid"><div class="lc"><div class="spin"></div></div></div>
+    </div>
+  </section>
+
+  <!-- Gallery Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-row"><div><p class="eyebrow">Photo Gallery</p><h2>Education Across Rwanda &amp; Kivu</h2></div><button class="btn btn-outline btn-sm" onclick="go('gallery')">View All →</button></div>
+      <div id="homeGalGrid" class="gal-grid"><div class="lc" style="grid-column:span 3"><div class="spin"></div></div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div class="cta-text"><h2>Stay Connected with Education Updates Rwanda</h2><p>Subscribe on YouTube and follow us for daily education news, scholarship alerts, exam updates, and inspiring stories from across Rwanda.</p></div>
+      <div class="cta-acts">
+        <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" class="btn btn-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5a3 3 0 00-2.1 2.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+          Subscribe on YouTube
+        </a>
+        <button class="btn btn-ghost-w" onclick="go('contact')">Contact Us</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: NEWS LIST -->
+<div id="p-news" class="page" style="padding-top:var(--hh)">
+  <div class="ph"><div class="container ph-inner"><p class="eyebrow" style="color:var(--gl)">Latest Updates</p><h1>Education News from Rwanda</h1><p>Verified news, policy updates, exam schedules, and education developments across Rwanda and the Great Lakes region.</p></div></div>
+  <div class="container section">
+    <div class="filter-bar" id="newsFilters"></div>
+    <div id="newsListGrid" class="news-grid"></div>
+  </div>
+</div>
+
+<!-- PAGE: NEWS DETAIL -->
+<div id="p-newsDetail" class="page" style="padding-top:var(--hh)">
+  <div id="ndWrap" class="nd-wrap"></div>
+</div>
+
+<!-- PAGE: VIDEOS -->
+<div id="p-videos" class="page" style="padding-top:var(--hh)">
+  <div class="ph"><div class="container ph-inner"><p class="eyebrow" style="color:var(--gl)">Video Content</p><h1>Watch. Learn. Share.</h1><p>Hundreds of videos covering scholarships, exam prep, university guides, careers, and student stories.</p></div></div>
+  <div class="container section">
+    <div class="filter-bar" id="videoFilters"></div>
+    <div id="videosGrid" class="vid-grid"></div>
+  </div>
+</div>
+
+<!-- PAGE: RESOURCES -->
+<div id="p-resources" class="page" style="padding-top:var(--hh)">
+  <div class="ph"><div class="container ph-inner"><p class="eyebrow" style="color:var(--gl)">Study Resources</p><h1>Tools &amp; Materials for Students</h1><p>Past papers, guides, PDFs, career pathways, and curated video playlists — all freely accessible.</p></div></div>
+  <div class="container section">
+    <div class="filter-bar" id="resFilters"></div>
+    <div id="resListGrid" class="res-grid"></div>
+  </div>
+</div>
+
+<!-- PAGE: SCHOLARSHIPS -->
+<div id="p-scholarships" class="page" style="padding-top:var(--hh)">
+  <div class="ph"><div class="container ph-inner"><p class="eyebrow" style="color:var(--gl)">Funding &amp; Opportunities</p><h1>Scholarships for Rwandan Students</h1><p>Every major scholarship tracked and verified — local, regional, and international opportunities updated regularly.</p></div></div>
+  <div class="container section">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
+      <div class="filter-bar" id="schStatusFilters" style="margin-bottom:0;flex:1"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
+      <select id="schCountryFilter" onchange="renderScholarships()" style="padding:9px 14px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink);font-size:13px;font-family:var(--body);outline:none;cursor:pointer"><option value="">All Countries</option></select>
+      <select id="schLevelFilter" onchange="renderScholarships()" style="padding:9px 14px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink);font-size:13px;font-family:var(--body);outline:none;cursor:pointer"><option value="">All Levels</option></select>
+    </div>
+    <div id="schListGrid" class="sch-grid"></div>
+    <!-- Notification band -->
+    <div style="margin-top:52px;background:var(--gp);border:1.5px solid var(--gl);border-radius:var(--rl);padding:30px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <div style="font-size:40px">📢</div>
+      <div style="flex:1"><h3 style="font-size:19px;color:var(--gd);margin-bottom:6px">Get Notified of New Scholarships</h3><p style="font-size:14px;color:var(--gd);opacity:.85">Subscribe to our YouTube channel and turn on notifications to be the first to know when new scholarships open.</p></div>
+      <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" class="btn btn-yt">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5a3 3 0 00-2.1 2.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+        Subscribe Now
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: GALLERY -->
+<div id="p-gallery" class="page" style="padding-top:var(--hh)">
+  <div class="ph"><div class="container ph-inner"><p class="eyebrow" style="color:var(--gl)">Photo Gallery</p><h1>Education Across Rwanda &amp; Kivu</h1><p>A visual celebration of students, classrooms, graduations, and learning communities across all provinces.</p></div></div>
+  <div class="container section">
+    <div id="galFullGrid" class="gal-grid"></div>
+  </div>
+</div>
+
+<!-- PAGE: ABOUT -->
+<div id="p-about" class="page" style="padding-top:var(--hh)">
+  <section class="about-hero">
+    <div class="ah-bg" id="aboutHeroBg"></div>
+    <div class="orb o1" style="opacity:.5"></div>
+    <div class="container ah-content">
+      <p class="eyebrow" style="color:var(--gl)">About Us</p>
+      <h1>Connecting Rwanda's Education Community</h1>
+      <p>Education Updates Rwanda – Kivu is a community-driven platform dedicated to sharing the latest education news, scholarships, resources, and inspiring stories across Rwanda and the Great Lakes region.</p>
+    </div>
+  </section>
+  <!-- Mission / Vision / Goal -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-hdr" style="text-align:center"><p class="eyebrow">Our Purpose</p><h2>Mission, Vision &amp; Goal</h2></div>
+      <div class="mission-grid">
+        <div class="mc"><div class="mc-num">01</div><h3>Our Mission</h3><p>To empower Rwandan students, educators, and families with timely, accurate, and actionable education information that drives better outcomes and expanded opportunities.</p></div>
+        <div class="mc"><div class="mc-num">02</div><h3>Our Vision</h3><p>A Rwanda where every student — regardless of location or background — has access to quality education information, opportunities, and the inspiration to achieve their full potential.</p></div>
+        <div class="mc"><div class="mc-num">03</div><h3>Our Goal</h3><p>To become the most trusted and widely-used education information platform across the Great Lakes region, bridging the information gap for every student and educator.</p></div>
+      </div>
+    </div>
+  </section>
+  <!-- Core Values -->
+  <section class="section sa">
+    <div class="container">
+      <div class="sec-hdr" style="text-align:center"><p class="eyebrow">What We Stand For</p><h2>Our Core Values</h2></div>
+      <div class="val-grid">
+        <div class="vcard"><div class="vcard-icon">🎯</div><h3>Accuracy</h3><p>We verify all information before publishing so students and families can trust every update we share.</p></div>
+        <div class="vcard"><div class="vcard-icon">⚡</div><h3>Timeliness</h3><p>Education news moves fast — we ensure critical deadlines, results, and policies reach you instantly.</p></div>
+        <div class="vcard"><div class="vcard-icon">🤝</div><h3>Inclusivity</h3><p>We serve all Rwandans — rural and urban, primary to university — ensuring no student is left behind.</p></div>
+        <div class="vcard"><div class="vcard-icon">💡</div><h3>Empowerment</h3><p>Every piece of content we produce is designed to give students the knowledge and confidence to succeed.</p></div>
+      </div>
+    </div>
+  </section>
+  <!-- Organization History -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-hdr"><p class="eyebrow">Our Journey</p><h2>Organisation History</h2></div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-year">2020</div><div class="tl-content"><h4>YouTube Channel Founded</h4><p>Education Updates Rwanda – Kivu launched as a YouTube channel to share education news and scholarship opportunities for Rwandan students.</p></div></div>
+        <div class="tl-item"><div class="tl-year">2021</div><div class="tl-content"><h4>10,000 Subscribers Milestone</h4><p>Reached 10,000 YouTube subscribers, confirming the platform's value to Rwanda's education community.</p></div></div>
+        <div class="tl-item"><div class="tl-year">2022</div><div class="tl-content"><h4>Scholarship Database Launched</h4><p>Launched a dedicated scholarship tracking system, helping thousands of students find and apply for opportunities.</p></div></div>
+        <div class="tl-item"><div class="tl-year">2023</div><div class="tl-content"><h4>All 5 Provinces Covered</h4><p>Expanded coverage to all five provinces of Rwanda with local reporters and community contributors in each region.</p></div></div>
+        <div class="tl-item"><div class="tl-year">2024</div><div class="tl-content"><h4>Full Website Platform</h4><p>Launched this comprehensive web platform combining news, videos, resources, gallery, and scholarship tracking in one place.</p></div></div>
+        <div class="tl-item"><div class="tl-year">2025</div><div class="tl-content"><h4>680 Schools Covered</h4><p>Our network now covers 680 schools nationwide with real-time updates, exam news, and student support resources.</p></div></div>
+      </div>
+    </div>
+  </section>
+  <!-- Team -->
+  <section class="section sa">
+    <div class="container">
+      <div class="sec-hdr" style="text-align:center"><p class="eyebrow">Our People</p><h2>Meet the Team</h2></div>
+      <div id="teamGrid" class="team-grid"><div class="lc"><div class="spin"></div></div></div>
+    </div>
+  </section>
+  <!-- Impact Stats -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-hdr" style="text-align:center"><p class="eyebrow">Our Impact</p><h2>By the Numbers</h2></div>
+      <div id="impactGrid" class="impact-grid"></div>
+    </div>
+  </section>
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div class="cta-text"><h2>Join Rwanda's Education Community</h2><p>Subscribe to our YouTube channel and be part of a growing community of students, teachers, and education advocates across Rwanda and the Great Lakes.</p></div>
+      <div class="cta-acts">
+        <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" class="btn btn-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5a3 3 0 00-2.1 2.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+          Subscribe on YouTube
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: CONTACT -->
+<div id="p-contact" class="page" style="padding-top:var(--hh)">
+  <div class="contact-hero">
+    <div class="container contact-hero-inner">
+      <p class="eyebrow" style="color:var(--gl)">Get in Touch</p>
+      <h1>Contact Education Updates Rwanda</h1>
+      <p>Have a question, story tip, or scholarship to share? We'd love to hear from you. Our team responds within 24 hours.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-info">
+          <div class="ci-card"><div class="ci-icon ci-icon-g">📍</div><div><h4>Location</h4><p>Rwanda · Great Lakes Region (Kivu)</p><p class="ci-hours" style="margin-top:4px">Serving all 5 provinces</p></div></div>
+          <div class="ci-card"><div class="ci-icon ci-icon-b">✉️</div><div><h4>Email</h4><a href="mailto:info@educationupdatesrwanda.org">info@educationupdatesrwanda.org</a><p class="ci-hours">Response within 24 hours</p></div></div>
+          <div class="ci-card"><div class="ci-icon ci-icon-o">📞</div><div><h4>Phone &amp; WhatsApp</h4><a href="tel:+250788000000">+250 788 000 000</a><p class="ci-hours">Mon–Fri: 8:00 AM – 6:00 PM CAT</p></div></div>
+          <div class="ci-card"><div class="ci-icon ci-icon-p">📺</div><div><h4>YouTube</h4><a href="https://youtube.com/@educationupdatesrwanda" target="_blank">@educationupdatesrwanda</a><p class="ci-hours">10,400+ subscribers</p></div></div>
+          <div class="ci-card" style="flex-direction:column;align-items:flex-start">
+            <h4 style="font-size:13.5px;font-weight:700;margin-bottom:10px">Follow Us</h4>
+            <div style="display:flex;gap:9px">
+              <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" class="soc-btn" title="YouTube">▶</a>
+              <a href="https://wa.me/250788000000" target="_blank" class="soc-btn" title="WhatsApp" style="font-size:18px">💬</a>
+              <a href="#" class="soc-btn" title="Twitter">𝕏</a>
+              <a href="#" class="soc-btn" title="Facebook">f</a>
+            </div>
+          </div>
+          <!-- Map -->
+          <div style="border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:var(--sh0)">
+            <iframe class="maps-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255281.19882899645!2d29.7!3d-1.94!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19c29654e73ca535%3A0xa7f0291e1e8fc9a7!2sKigali%2C%20Rwanda!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;width:100%;height:220px;display:block"></iframe>
+          </div>
+        </div>
+        <div class="contact-form-card">
+          <div><h2 class="cform-title">Send us a Message</h2><p class="cform-sub">Fill in the form below and we'll get back to you as soon as possible.</p></div>
+          <div class="frow2">
+            <div class="fg"><label>Full Name *</label><input type="text" id="cf-name" placeholder="Your full name"/></div>
+            <div class="fg"><label>Email Address *</label><input type="email" id="cf-email" placeholder="your@email.com"/></div>
+          </div>
+          <div class="fg"><label>Phone / WhatsApp (optional)</label><input type="tel" id="cf-phone" placeholder="+250 7XX XXX XXX"/></div>
+          <div class="fg"><label>Subject *</label>
+            <select id="cf-subject">
+              <option value="">Select a topic…</option>
+              <option>Scholarship Information</option>
+              <option>Submit a News Story</option>
+              <option>Partnership Inquiry</option>
+              <option>Resource Submission</option>
+              <option>Technical Issue</option>
+              <option>General Question</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message *</label><textarea id="cf-message" rows="5" placeholder="Write your message here…"></textarea></div>
+          <p class="form-note">🔒 Your information is kept private and never shared with third parties.</p>
+          <div class="form-alert form-ok" id="cf-ok">✅ Message sent successfully! We'll respond within 24 hours.</div>
+          <div class="form-alert form-bad" id="cf-err">⚠ Please fill in all required fields correctly.</div>
+          <button class="btn btn-g btn-full" onclick="submitContact()" id="cfBtn" style="border-radius:12px;padding:14px">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" id="pubFooter">
+  <div class="container footer-inner">
+    <div class="fb-brand">
+      <button class="logo" onclick="go('home')" style="margin-bottom:0">
+        <div class="logo-icon">📚</div>
+        <div class="logo-text"><span class="logo-name" style="color:#fff">EduUpdates</span><span class="logo-tag">Rwanda · Kivu</span></div>
+      </button>
+      <p>Your trusted source for education news, scholarships, and learning resources across Rwanda and the Great Lakes region. Empowering students since 2020.</p>
+      <div class="socials">
+        <a href="https://youtube.com/@educationupdatesrwanda" target="_blank" class="soc-btn" title="YouTube">▶</a>
+        <a href="https://wa.me/250788000000" target="_blank" class="soc-btn" title="WhatsApp">💬</a>
+        <a href="#" class="soc-btn" title="Twitter">𝕏</a>
+        <a href="#" class="soc-btn" title="Facebook" style="font-family:serif;font-weight:700">f</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="fl"><h4>Platform</h4><button onclick="go('home')">Home</button><button onclick="go('news')">News</button><button onclick="go('videos')">Videos</button><button onclick="go('gallery')">Gallery</button><button onclick="go('about')">About Us</button></div>
+      <div class="fl"><h4>Resources</h4><button onclick="go('resources')">Past Papers</button><button onclick="go('scholarships')">Scholarships</button><button onclick="go('resources')">Study Abroad</button><button onclick="go('resources')">Career Paths</button></div>
+      <div class="fl"><h4>Connect</h4><button onclick="go('contact')">Contact Us</button><button onclick="go('contact')">Submit a Story</button><a href="mailto:info@educationupdatesrwanda.org" style="display:block;padding:4px 0;font-size:13.5px;color:rgba(255,255,255,.52);transition:color .2s;text-decoration:none" onmouseover="this.style.color='var(--gl)'" onmouseout="this.style.color='rgba(255,255,255,.52)'">info@eduupdates.rw</a><a href="tel:+250788000000" style="display:block;padding:4px 0;font-size:13.5px;color:rgba(255,255,255,.52);transition:color .2s;text-decoration:none" onmouseover="this.style.color='var(--gl)'" onmouseout="this.style.color='rgba(255,255,255,.52)'"">+250 788 000 000</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container"><p>© 2026 Education Updates Rwanda – Kivu. All rights reserved.</p><p>Made with ❤️ for Rwanda's students.</p></div></div>
+</footer>
+</div><!-- /pubSite -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">×</button>
+  <img class="lb-img" id="lbImg" src="" alt="Gallery"/>
+  <div class="lb-caption" id="lbCap"></div>
+  <div class="lb-nav">
+    <button class="lb-btn" onclick="lbNav(-1)">‹</button>
+    <span class="lb-counter" id="lbCounter">1 / 1</span>
+    <button class="lb-btn" onclick="lbNav(1)">›</button>
+  </div>
+</div>
+
+<!-- PDF VIEWER -->
+<div class="pdf-modal" id="pdfModal">
+  <div class="pdf-modal-hdr">
+    <h3 id="pdfTitle">Document</h3>
+    <div class="pm-actions">
+      <a id="pdfDlBtn" href="#" download class="btn btn-g btn-sm" style="border-radius:8px">⬇ Download</a>
+      <button class="pm-close" onclick="closePdf()">×</button>
+    </div>
+  </div>
+  <iframe id="pdfFrame" src=""></iframe>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     ADMIN LOGIN OVERLAY
+═══════════════════════════════════════════════════ -->
+<div id="adminLogin">
+  <div class="lb-box">
+    <div class="lb-logo"><div class="lb-logo-ic">📚</div><div class="lb-logo-txt"><h3>EduUpdates Rwanda</h3><span>Content Management System</span></div></div>
+    <h2>Admin Sign In</h2>
+    <p>Sign in to manage your site content</p>
+    <div class="lb-err" id="loginErr"></div>
+    <div style="display:flex;flex-direction:column;gap:15px;margin-top:4px">
+      <div class="af"><label>Username</label><input type="text" id="loginUser" placeholder="admin"/></div>
+      <div class="af"><label>Password</label><input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button onclick="doLogin()" id="loginBtn" style="background:var(--ac);color:#fff;border:none;padding:14px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--body);transition:background .2s" onmouseover="this.style.background='var(--acd)'" onmouseout="this.style.background='var(--ac)'">Sign In →</button>
+      <p style="text-align:center;color:#94a3b8;font-size:12.5px;font-family:var(--body)">Default: <strong style="color:#1e293b">admin</strong> / <strong style="color:#1e293b">eduupdates2026</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     ADMIN APP
+═══════════════════════════════════════════════════ -->
+<div id="adminApp">
+  <header class="adm-hdr">
+    <div class="adm-logo">📚 EduUpdates <span>CMS</span></div>
+    <span class="adm-badge">Admin</span>
+    <div class="adm-sp"></div>
+    <button class="adm-view" onclick="exitAdmin()">🌐 View Site</button>
+    <div class="adm-user"><div class="adm-av" id="admAv">A</div><span id="admUser">admin</span></div>
+    <button class="adm-logout" onclick="logout()">Sign out</button>
+  </header>
+  <div class="adm-body">
+    <aside class="adm-side">
+      <div class="sb-sec">
+        <div class="sb-lbl">Overview</div>
+        <button class="ni active" onclick="showPanel('dashboard')"><span class="nio">📊</span>Dashboard</button>
+      </div>
+      <div class="sb-sec">
+        <div class="sb-lbl">Content</div>
+        <button class="ni" onclick="showPanel('news')"><span class="nio">📰</span>News<span class="nic" id="cnt-news">0</span></button>
+        <button class="ni" onclick="showPanel('videos')"><span class="nio">🎥</span>Videos<span class="nic" id="cnt-videos">0</span></button>
+        <button class="ni" onclick="showPanel('scholarships')"><span class="nio">🎓</span>Scholarships<span class="nic" id="cnt-scholarships">0</span></button>
+        <button class="ni" onclick="showPanel('resources')"><span class="nio">📖</span>Resources<span class="nic" id="cnt-resources">0</span></button>
+        <button class="ni" onclick="showPanel('gallery')"><span class="nio">🖼</span>Gallery<span class="nic" id="cnt-gallery">0</span></button>
+        <button class="ni" onclick="showPanel('team')"><span class="nio">👥</span>Team<span class="nic" id="cnt-team">0</span></button>
+      </div>
+      <div class="sb-sec">
+        <div class="sb-lbl">Inbox</div>
+        <button class="ni" onclick="showPanel('contacts')"><span class="nio">💬</span>Messages<span class="nic" id="cnt-contacts">0</span></button>
+        <button class="ni" onclick="showPanel('subscribers')"><span class="nio">📧</span>Subscribers<span class="nic" id="cnt-subscribers">0</span></button>
+      </div>
+      <div class="sb-sec">
+        <div class="sb-lbl">Settings</div>
+        <button class="ni" onclick="showPanel('stats')"><span class="nio">📈</span>Site Stats</button>
+      </div>
+      <div class="sb-foot"><button class="ni" onclick="exitAdmin()"><span class="nio">🌐</span>Back to Site</button></div>
+    </aside>
+    <main class="adm-main">
+
+      <!-- DASHBOARD -->
+      <div class="ap active" id="panel-dashboard">
+        <div class="aph"><div><h2>Dashboard</h2><p>Welcome back — here's an overview of all your content.</p></div></div>
+        <div class="ast-grid">
+          <div class="ast" onclick="showPanel('news')"><div class="ast-icon">📰</div><div class="ast-num" id="ds-news">0</div><div class="ast-lbl">News Articles</div></div>
+          <div class="ast" onclick="showPanel('videos')"><div class="ast-icon">🎥</div><div class="ast-num" id="ds-videos">0</div><div class="ast-lbl">Videos</div></div>
+          <div class="ast" onclick="showPanel('scholarships')"><div class="ast-icon">🎓</div><div class="ast-num" id="ds-scholarships">0</div><div class="ast-lbl">Scholarships</div></div>
+          <div class="ast" onclick="showPanel('resources')"><div class="ast-icon">📖</div><div class="ast-num" id="ds-resources">0</div><div class="ast-lbl">Resources</div></div>
+          <div class="ast" onclick="showPanel('gallery')"><div class="ast-icon">🖼</div><div class="ast-num" id="ds-gallery">0</div><div class="ast-lbl">Gallery Items</div></div>
+          <div class="ast" onclick="showPanel('team')"><div class="ast-icon">👥</div><div class="ast-num" id="ds-team">0</div><div class="ast-lbl">Team Members</div></div>
+        </div>
+        <div style="font-size:18px;font-weight:800;color:#0f172a;font-family:var(--body);margin-bottom:14px">Quick Add Content</div>
+        <div class="aqg">
+          <div class="aqc" onclick="openModal('news')"><div class="aqc-icon">📰</div><h4>New Article</h4><p>Add education news</p></div>
+          <div class="aqc" onclick="openModal('videos')"><div class="aqc-icon">🎥</div><h4>New Video</h4><p>Add YouTube video</p></div>
+          <div class="aqc" onclick="openModal('scholarships')"><div class="aqc-icon">🎓</div><h4>New Scholarship</h4><p>Post opportunity</p></div>
+          <div class="aqc" onclick="openModal('resources')"><div class="aqc-icon">📖</div><h4>New Resource</h4><p>Upload PDF / material</p></div>
+          <div class="aqc" onclick="openModal('gallery')"><div class="aqc-icon">🖼</div><h4>New Gallery Item</h4><p>Upload photo</p></div>
+          <div class="aqc" onclick="openModal('team')"><div class="aqc-icon">👥</div><h4>New Team Member</h4><p>Add team profile</p></div>
+        </div>
+      </div>
+
+      <!-- NEWS -->
+      <div class="ap" id="panel-news">
+        <div class="aph"><div><h2>News Articles</h2><p>Full CRUD — title, image, excerpt, body, tag, province, date, featured, apply link</p></div><button class="abtn abtn-p abtn-lg" onclick="openModal('news')">+ New Article</button></div>
+        <div class="atbl"><div class="atbl-tb"><h3>All Articles</h3><input class="a-search" placeholder="Search articles…" oninput="filterTbl('news',this.value)"/></div><div id="tbl-news"></div></div>
+      </div>
+
+      <!-- VIDEOS -->
+      <div class="ap" id="panel-videos">
+        <div class="aph"><div><h2>Videos</h2><p>YouTube URL auto-extracts ID — supports youtube.com/watch?v= and youtu.be/ formats</p></div><button class="abtn abtn-p abtn-lg" onclick="openModal('videos')">+ New Video</button></div>
+        <div class="atbl"><div class="atbl-tb"><h3>All Videos</h3><input class="a-search" placeholder="Search videos…" oninput="filterTbl('videos',this.value)"/></div><div id="tbl-videos"></div></div>
+      </div>
+
+      <!-- SCHOLARSHIPS -->
+      <div class="ap" id="panel-scholarships">
+        <div class="aph"><div><h2>Scholarships</h2><p>With thumbnail, eligibility, amount, apply URL, country and level filters</p></div><button class="abtn abtn-p abtn-lg" onclick="openModal('scholarships')">+ New Scholarship</button></div>
+        <div class="atbl"><div class="atbl-tb"><h3>All Scholarships</h3><input class="a-search" placeholder="Search…" oninput="filterTbl('scholarships',this.value)"/></div><div id="tbl-scholarships"></div></div>
+      </div>
+
+      <!-- RESOURCES -->
+      <div class="ap" id="panel-resources">
+        <div class="aph"><div><h2>Resources</h2><p>PDF upload support — drag &amp; drop files, auto-preview, download &amp; share</p></div><button class="abtn abtn-p abtn-lg" onclick="openModal('resources')">+ New Resource</button></div>
+        <div class="atbl"><div class="atbl-tb"><h3>All Resources</h3><input class="a-search" placeholder="Search…" oninput="filterTbl('resources',this.value)"/></div><div id="tbl-resources"></div></div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="ap" id="panel-gallery">
+        <div class="aph"><div><h2>Gallery</h2><p>Upload up to 50 photos — drag &amp; drop, captions, lightbox view on frontend</p></div><button class="abtn abtn-p abtn-lg" onclick="openModal('gallery')">+ New Item</button></div>
+        <div class="atbl"><div class="atbl-tb"><h3>Gallery Items</h3><input class="a-search" placeholder="Search…" oninput="filterTbl('gallery',this.value)"/></div><div id="tbl-gallery"></div></div>
+      </div>
+
+      <!-- TEAM -->
+      <div class="ap" id="panel-team">
+        <div class="aph"><div><h2>Team Members</h2><p>Photo, name, role, bio, and social links for each team member</p></div><button class="abtn abtn-p abtn-lg" onclick="openModal('team')">+ New Member</button></div>
+        <div class="atbl"><div class="atbl-tb"><h3>All Members</h3></div><div id="tbl-team"></div></div>
+      </div>
+
+      <!-- CONTACTS -->
+      <div class="ap" id="panel-contacts">
+        <div class="aph"><div><h2>Messages</h2><p>Contact form submissions — click row to read full message</p></div></div>
+        <div class="atbl"><div class="atbl-tb"><h3>All Messages</h3><input class="a-search" placeholder="Search…" oninput="filterTbl('contacts',this.value)"/></div><div id="tbl-contacts"></div></div>
+      </div>
+
+      <!-- SUBSCRIBERS -->
+      <div class="ap" id="panel-subscribers">
+        <div class="aph"><div><h2>Subscribers</h2><p>Newsletter email list</p></div></div>
+        <div class="atbl"><div class="atbl-tb"><h3>All Subscribers</h3></div><div id="tbl-subscribers"></div></div>
+      </div>
+
+      <!-- STATS -->
+      <div class="ap" id="panel-stats">
+        <div class="aph"><div><h2>Site Stats</h2><p>Update headline numbers shown in hero section and About page</p></div><button class="abtn abtn-p abtn-lg" onclick="saveStats()">💾 Save Stats</button></div>
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:var(--rl);padding:32px;max-width:540px;box-shadow:0 2px 8px rgba(0,0,0,.04)">
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <div class="af"><label>YouTube Subscribers (e.g. 10,400)</label><input id="st-subscribers" placeholder="10,400"/></div>
+            <div class="af"><label>Total Videos Published</label><input id="st-videos" placeholder="527"/></div>
+            <div class="af"><label>Provinces Covered</label><input id="st-provinces" type="number" placeholder="5"/></div>
+            <div class="af"><label>Schools Covered</label><input id="st-schools" type="number" placeholder="680"/></div>
+            <div class="af"><label>Scholarships Tracked</label><input id="st-scholarships" type="number" placeholder="94"/></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div><!-- /adminApp -->
+
+<!-- ADMIN FORM MODAL -->
+<div class="am-ov" id="formModal" onclick="if(event.target===this)closeModal()">
+  <div class="am">
+    <div class="am-hdr"><h3 id="modalTitle">Add Item</h3><button class="am-close" onclick="closeModal()">×</button></div>
+    <div class="am-body" id="modalBody"></div>
+    <div class="am-foot">
+      <button class="abtn abtn-gh" onclick="closeModal()">Cancel</button>
+      <button class="abtn abtn-p" id="modalSaveBtn" onclick="saveModal()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGE VIEW MODAL -->
+<div class="am-ov" id="msgModal" onclick="if(event.target===this)closeMsgModal()">
+  <div class="am">
+    <div class="am-hdr"><h3 id="msgTitle">Message</h3><button class="am-close" onclick="closeMsgModal()">×</button></div>
+    <div class="am-body" id="msgBody"></div>
+    <div class="am-foot"><button class="abtn abtn-d" id="msgDelBtn">🗑 Delete</button><button class="abtn abtn-gh" onclick="closeMsgModal()">Close</button></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONFIG & STATE
+// ═══════════════════════════════════════════════════════════════
+const API = window.location.origin + '/api';
+const CREDS = {u:'admin',p:'eduupdates2026'};
+let token = localStorage.getItem('edu_token')||'';
+let adminUser = localStorage.getItem('edu_user')||'';
+let curPage='home', curDetail=null, curPanel='dashboard';
+let modalType=null, modalId=null;
+let lbItems=[], lbIdx=0;
+let videoFilter='All', schStatus='All', schCountry='', schLevel='';
+let newsFilter='All', resFilter='All';
+let theme = localStorage.getItem('edu_theme')||'light';
+
+// ── SEEDED DATA (pre-loaded; refreshed from API when XAMPP available) ──
+const store = {
+  news:[
+    {id:1,tag:'Scholarship',tagColor:'#16803C',date:'May 2026',source:'Ministry of Education',title:'National Scholarship Programme 2026: Applications Now Open',excerpt:'The Government of Rwanda has opened applications for the National Scholarship Programme targeting students in all 30 districts, with special focus on Kivu region. Over 5,000 scholarships available.',body:'The Government of Rwanda launched the National Scholarship Programme 2026 covering all 30 districts.\n\nEligibility: Rwandan nationals, aged 18–30, with a minimum grade of B+ at S6 level.\n\nSpecial quotas have been reserved for students from the Kivu region and other underserved areas. The scholarship covers full tuition, accommodation, and a monthly stipend of RWF 80,000.\n\nTo apply, visit the REB portal at www.reb.rw or visit your nearest district education office.',province:'All Provinces',featured:1,readTime:'4 min read',image:'',linkUrl:'https://www.reb.rw',linkLabel:'Apply Here'},
+    {id:2,tag:'Exams',tagColor:'#1d4ed8',date:'April 2026',source:'REB',title:'National Examination Timetable 2026 Released by Rwanda Education Board',excerpt:'The Rwanda Education Board has released the official examination calendar for P6, S3, and S6 students nationwide.',body:'REB has published the 2026 national exam schedule:\n\n• P6 National Exams: September 8–12, 2026\n• S3 National Exams: October 6–10, 2026\n• S6 National Exams: November 3–14, 2026\n\nAll schools should download the official timetable from the REB website.',province:'All Provinces',featured:0,readTime:'3 min read',image:'',linkUrl:'https://www.reb.rw',linkLabel:'Download Timetable'},
+    {id:3,tag:'University',tagColor:'#7c3aed',date:'April 2026',source:'University of Rwanda',title:'UR Announces New Engineering and Agriculture Programmes for 2026/27',excerpt:'University of Rwanda opens intake for new degree programmes across six colleges, with partial scholarships available.',body:'The University of Rwanda has announced six new degree programmes for the 2026/27 intake:\n\n1. BSc. Renewable Energy Engineering\n2. BSc. Smart Agriculture\n3. BSc. Data Science\n4. BEd. Special Needs Education\n5. BSc. Biomedical Engineering\n6. LLB. International Law\n\nPartial scholarships available for students with B+ and above. Application deadline: June 30, 2026.',province:'Kigali',featured:0,readTime:'5 min read',image:'',linkUrl:'https://www.ur.ac.rw',linkLabel:'Apply Now'},
+    {id:4,tag:'Policy',tagColor:'#ea580c',date:'March 2026',source:'MINEDUC',title:'Rwanda Expands One Laptop Per Child Initiative to Eastern Province',excerpt:'New digital learning rollout reaches 150 more schools in Eastern and Northern provinces — 45,000 students benefit.',body:'The Government of Rwanda, through MINEDUC, has extended the One Laptop Per Child initiative to 150 additional schools in Eastern and Northern provinces.\n\nOver 45,000 students will benefit. The initiative now covers 680 schools nationwide.',province:'Eastern Province',featured:0,readTime:'3 min read',image:'',linkUrl:'',linkLabel:'Read More'},
+    {id:5,tag:'International',tagColor:'#dc2626',date:'February 2026',source:'MINAFFET',title:'African Development Bank Scholarships 2026: Call for Applications',excerpt:'AfDB has opened its prestigious scholarship programme. Rwandan students are strongly encouraged to apply before June 15.',body:'The African Development Bank (AfDB) has opened applications for its 2026 scholarship programme.\n\nEligibility:\n• Must be a citizen of an AfDB member country\n• Under 40 years of age\n• Minimum Bachelor\'s degree with upper second class honours\n\nDeadline: June 15, 2026.\nApply at: www.afdb.org/scholarships',province:'All Provinces',featured:0,readTime:'4 min read',image:'',linkUrl:'https://www.afdb.org/scholarships',linkLabel:'Apply Here'},
+    {id:6,tag:'Kivu',tagColor:'#0d9488',date:'March 2026',source:'Western Province',title:'New Secondary Schools to Open in Western Province This September',excerpt:'Three new government-aided secondary schools will open in Nyamasheke, Rusizi, and Rubavu Districts.',body:'Western Province will welcome three new government-aided secondary schools:\n\n• GS Nyamasheke Centre — Nyamasheke District\n• GS Rusizi II — Rusizi District\n• GS Rubavu Tech — Rubavu District (technical focus)',province:'Western Province',featured:0,readTime:'3 min read',image:'',linkUrl:'',linkLabel:'Read More'},
+  ],
+  videos:[
+    {id:1,ytId:'dQw4w9WgXcQ',title:'National Scholarship 2026: Full Application Guide',duration:'18:42',views:'24K',date:'May 2026',category:'Scholarships',featured:1,description:'Complete step-by-step guide to applying for the 2026 National Scholarship Programme in Rwanda. Covers eligibility, documents, deadlines, and tips.'},
+    {id:2,ytId:'dQw4w9WgXcQ',title:'S6 Exam Preparation: Top Study Strategies',duration:'22:15',views:'31K',date:'April 2026',category:'Exams',featured:1,description:'Proven study techniques and time management strategies to help S6 students excel in national exams.'},
+    {id:3,ytId:'dQw4w9WgXcQ',title:'University of Rwanda Admissions 2026 Guide',duration:'15:30',views:'18K',date:'April 2026',category:'University',featured:1,description:'Everything you need to know about applying to the University of Rwanda for the 2026/27 academic year.'},
+    {id:4,ytId:'dQw4w9WgXcQ',title:'How to Apply for AfDB Scholarship Step by Step',duration:'25:00',views:'12K',date:'March 2026',category:'Scholarships',featured:1,description:'Detailed walkthrough of the African Development Bank scholarship application process for Rwandan students.'},
+    {id:5,ytId:'dQw4w9WgXcQ',title:'P6 Math Past Papers 2020–2025: Full Solutions',duration:'45:00',views:'52K',date:'March 2026',category:'Exams',featured:1,description:'Full worked solutions for P6 national math past papers from 2020 to 2025.'},
+    {id:6,ytId:'dQw4w9WgXcQ',title:'Careers in ICT Rwanda: Opportunities & Pathways',duration:'19:20',views:'9K',date:'February 2026',category:'Careers',featured:1,description:'Explore career paths in ICT across Rwanda — from software development to cybersecurity and digital marketing.'},
+  ],
+  scholarships:[
+    {id:1,title:'Government of Rwanda Scholarships 2026',provider:'MINEDUC',deadline:'July 31, 2026',level:'University',status:'Open',amount:'Full scholarship',country:'Rwanda',image:'',description:'Covers tuition, accommodation, and monthly stipend of RWF 80,000. Open to all Rwandan nationals with B+ and above.',eligibility:'Rwandan nationals aged 18–30 with S6 certificate, minimum grade B+.',applyUrl:'https://www.reb.rw'},
+    {id:2,title:'African Development Bank Scholarship',provider:'AfDB',deadline:'June 15, 2026',level:'Postgraduate',status:'Open',amount:'Full + stipend',country:'Pan-Africa',image:'',description:'Full master\'s degree scholarship at top African and international universities. For AfDB member country citizens under 40.',eligibility:'Citizen of AfDB member country, under 40, Bachelor\'s with upper second class honours.',applyUrl:'https://www.afdb.org/scholarships'},
+    {id:3,title:'Mastercard Foundation Scholars Program',provider:'University of Rwanda',deadline:'August 1, 2026',level:'University',status:'Open',amount:'Full scholarship',country:'Rwanda',image:'',description:'Full scholarship including tuition, housing, meals, and a leadership development programme at UR.',eligibility:'Rwandan nationals from underserved communities with academic excellence.',applyUrl:'https://ur.ac.rw'},
+    {id:4,title:'Commonwealth Scholarship 2026',provider:'CSC UK',deadline:'September 30, 2026',level:'Postgraduate',status:'Coming Soon',amount:'Full + flights',country:'United Kingdom',image:'',description:'Full funding for Rwandan students to pursue postgraduate study at UK universities — tuition, flights, and living costs.',eligibility:'Rwandan citizen, first degree, commitment to development on return.',applyUrl:'https://www.cscuk.fcdo.gov.uk'},
+    {id:5,title:'Chinese Government Scholarship (CSC)',provider:'Embassy of China',deadline:'March 2027',level:'University / PG',status:'Closed',amount:'Full scholarship',country:'China',image:'',description:'Full scholarship for study at Chinese universities at both undergraduate and postgraduate level.',eligibility:'Age limit and academic requirements vary by programme level.',applyUrl:'https://www.campuschina.org'},
+    {id:6,title:'UR Kigali Innovation City Grant',provider:'UR / RDB',deadline:'October 15, 2026',level:'University',status:'Open',amount:'Partial + internship',country:'Rwanda',image:'',description:'Partial scholarship plus guaranteed internship at Kigali Innovation City for STEM students.',eligibility:'UR STEM students with GPA 3.5+ and demonstrated interest in innovation.',applyUrl:'https://kic.rw'},
+  ],
+  resources:[
+    {id:1,icon:'📖',color:'#16803C',colorPale:'#dcfce7',title:'Past Exam Papers',category:'Exams',desc:'P6, S3, and S6 national exam past papers from REB — practice, solve, and prepare with full marking schemes.',count:'120+ papers',pdfUrl:'',coverImage:''},
+    {id:2,icon:'🏫',color:'#1d4ed8',colorPale:'#dbeafe',title:'School Directory',category:'Directory',desc:'Find schools across Rwanda including contacts, GPS locations, enrolment stats, and national performance rankings.',count:'1,200+ schools',pdfUrl:'',coverImage:''},
+    {id:3,icon:'📅',color:'#ea580c',colorPale:'#ffedd5',title:'Academic Calendar 2026',category:'Calendar',desc:'Official term dates, exam schedules, and holiday calendar for all Rwandan schools — 2026 edition.',count:'2026–2027',pdfUrl:'',coverImage:''},
+    {id:4,icon:'🌍',color:'#7c3aed',colorPale:'#ede9fe',title:'Study Abroad Guide',category:'Guide',desc:'Step-by-step guides for Rwandan students applying to universities in the UK, USA, China, and across Africa.',count:'30+ destinations',pdfUrl:'',coverImage:''},
+    {id:5,icon:'💡',color:'#0d9488',colorPale:'#ccfbf1',title:'Career Pathways Rwanda',category:'Career',desc:'Explore education-to-career pathways aligned with Rwanda\'s Vision 2050 priority sectors and job market data.',count:'25 pathways',pdfUrl:'',coverImage:''},
+    {id:6,icon:'🎥',color:'#dc2626',colorPale:'#fee2e2',title:'YouTube Study Playlists',category:'Video',desc:'Curated playlists by subject: Mathematics, Sciences, English, Kinyarwanda — all levels, free to watch.',count:'500+ videos',pdfUrl:'',coverImage:''},
+  ],
+  gallery:[
+    {id:1,label:'Students, Kigali',caption:'Students at morning assembly — Kigali City',bg:'linear-gradient(135deg,#16803C,#22c55e,#3b82f6)',span:2,image:''},
+    {id:2,label:'Classroom Session',caption:'Teacher-led session, Eastern Province',bg:'linear-gradient(135deg,#1d4ed8,#7c3aed)',span:1,image:''},
+    {id:3,label:'Graduation Day',caption:'Graduation ceremony at University of Rwanda',bg:'linear-gradient(135deg,#ea580c,#f59e0b)',span:1,image:''},
+    {id:4,label:'Science Lab',caption:'Students in a science lab, Musanze District',bg:'linear-gradient(135deg,#0d9488,#22d3ee)',span:2,image:''},
+    {id:5,label:'Community Learning',caption:'Education outreach programme, Southern Province',bg:'linear-gradient(135deg,#7c3aed,#ec4899)',span:1,image:''},
+    {id:6,label:'Digital Learning',caption:'Laptop programme participant, Rubavu',bg:'linear-gradient(135deg,#dc2626,#ea580c)',span:1,image:''},
+  ],
+  team:[
+    {id:1,name:'Jean-Pierre Nkurunziza',role:'Founder & Editor-in-Chief',bio:'Education journalist and former teacher with 10 years covering Rwanda\'s education sector. Based in Kigali, committed to making education news accessible to every Rwandan student.',grad:'linear-gradient(135deg,#16803C,#1d4ed8)',image:'',twitter:'',linkedin:'',email:'jp@eduupdates.rw'},
+    {id:2,name:'Ange Uwimana',role:'Scholarships Coordinator',bio:'Dedicated to tracking and verifying every scholarship opportunity available to Rwandan students — locally and internationally. Helped over 1,000 students find funding opportunities.',grad:'linear-gradient(135deg,#7c3aed,#ec4899)',image:'',twitter:'',linkedin:'',email:'ange@eduupdates.rw'},
+    {id:3,name:'Eric Habimana',role:'Video Producer & Editor',bio:'Behind the camera and the edit suite — creating the educational video content that has helped thousands of students prepare for exams and discover new opportunities.',grad:'linear-gradient(135deg,#ea580c,#f59e0b)',image:'',twitter:'',linkedin:'',email:'eric@eduupdates.rw'},
+  ],
+  contacts:[],
+  subscribers:[],
+  stats:{subscribers:'10,400',videos:'527',provinces:5,schools:680,scholarships:94},
+};
+
+// ═══════════════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  applyTheme();
+  renderHome();
+  syncStats();
+  startCounters();
+  renderImpactStats();
+  renderTeam();
+  tryLoadAPI();
+  if(token) tryAutoLogin();
+});
+
+async function tryLoadAPI(){
+  try{
+    const [nR,vR,sR,rR,gR,tR,stR]=await Promise.all([
+      apiFetch('news'),apiFetch('videos'),
+      apiFetch('scholarships'),apiFetch('resources'),
+      apiFetch('gallery'),apiFetch('team'),apiFetch('stats'),
+    ]);
+    if(Array.isArray(nR))          store.news=nR; else if(nR?.news) store.news=nR.news;
+    if(Array.isArray(vR))        store.videos=vR; else if(vR?.videos) store.videos=vR.videos;
+    if(Array.isArray(sR))  store.scholarships=sR; else if(sR?.scholarships) store.scholarships=sR.scholarships;
+    if(Array.isArray(rR)) store.resources=rR;
+    if(Array.isArray(gR)) store.gallery=gR;
+    if(Array.isArray(tR)) store.team=tR;
+    if(stR) { Object.assign(store.stats,stR); syncStats(); }
+    renderHome();
+    renderTeam();
+    renderImpactStats();
+  }catch{}
+}
+
+async function tryAutoLogin(){
+  try{
+    const r=await apiFetch('auth/verify',{method:'POST',body:JSON.stringify({action:'verify'})});
+    if(r?.ok||token==='offline'){adminUser=localStorage.getItem('edu_user')||'admin';enterAdmin();}
+    else{ localStorage.removeItem('edu_token'); token=''; }
+  }catch{ if(token==='offline'){enterAdmin();} }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════════════════
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme',theme);
+  const s=document.getElementById('thSun'),m=document.getElementById('thMoon');
+  if(s) s.style.display=theme==='dark'?'block':'none';
+  if(m) m.style.display=theme==='light'?'block':'none';
+}
+function toggleTheme(){theme=theme==='light'?'dark':'light';localStorage.setItem('edu_theme',theme);applyTheme();}
+
+// ═══════════════════════════════════════════════════════════════
+// MOBILE NAV
+// ═══════════════════════════════════════════════════════════════
+function toggleMob(){document.getElementById('mobBtn').classList.toggle('open');document.getElementById('mobNav').classList.toggle('open');}
+function closeMob(){document.getElementById('mobBtn').classList.remove('open');document.getElementById('mobNav').classList.remove('open');}
+window.addEventListener('scroll',()=>document.getElementById('siteHdr').classList.toggle('scrolled',scrollY>30),{passive:true});
+
+// ═══════════════════════════════════════════════════════════════
+// ANIMATED COUNTERS
+// ═══════════════════════════════════════════════════════════════
+function startCounters(){
+  document.querySelectorAll('.counter').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    let current=0;
+    const step=Math.ceil(target/60);
+    const timer=setInterval(()=>{
+      current=Math.min(current+step,target);
+      // Format with K suffix for large numbers
+      el.textContent = target>=1000 ? (current/1000).toFixed(current<target?1:0)+'K' : current;
+      if(current>=target)clearInterval(timer);
+    },25);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PUBLIC NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+const PAGES=['home','news','newsDetail','videos','resources','scholarships','gallery','about','contact'];
+
+function go(page,id){
+  PAGES.forEach(p=>{const el=document.getElementById(`p-${p}`);if(el)el.classList.remove('active');});
+  document.querySelectorAll('.nl').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById(`p-${page}`);
+  if(el)el.classList.add('active');
+  const nb=document.querySelector(`.nl[data-p="${page}"]`);
+  if(nb)nb.classList.add('active');
+  curPage=page; if(id!==undefined)curDetail=id;
+  scrollTo({top:0,behavior:'smooth'});
+  closeMob();
+  const footer=document.getElementById('pubFooter');
+  if(footer)footer.style.display=page==='newsDetail'?'none':'block';
+  switch(page){
+    case 'home':          renderHome();break;
+    case 'news':          renderNewsList();break;
+    case 'newsDetail':    renderNewsDetail(curDetail);break;
+    case 'videos':        renderVideos();break;
+    case 'resources':     renderResources();break;
+    case 'scholarships':  renderScholarships();break;
+    case 'gallery':       renderGallery();break;
+    case 'about':         renderTeam();renderImpactStats();break;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// API
+// ═══════════════════════════════════════════════════════════════
+async function apiFetch(path,opts={}){
+  const h={'Content-Type':'application/json',...(opts.headers||{})};
+  if(token&&token!=='offline') h['Authorization']=`Bearer ${token}`;
+  try{const r=await fetch(`${API}/${path}`,{...opts,headers:h});return r.json();}
+  catch{return null;}
+}
+
+// ═══════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════
+const g=id=>document.getElementById(id);
+const gv=id=>g(id)?.value?.trim()||'';
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function nextId(arr){return (arr.reduce((m,r)=>Math.max(m,r.id||0),0))+1;}
+function toast(msg,type='info'){
+  const el=g('toast');el.innerHTML=`<span>${type==='success'?'✓':type==='error'?'✕':'ℹ'}</span>${msg}`;
+  el.className=`show ${type}`;setTimeout(()=>el.className='',3500);
+}
+function loadBar(pct){
+  const el=g('loadBar');el.style.display='block';el.style.width=pct+'%';
+  if(pct>=100)setTimeout(()=>{el.style.display='none';el.style.width='0%';},400);
+}
+function ytThumb(ytId){return `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;}
+function extractYtId(url){
+  if(!url)return '';
+  // Handle youtu.be/ID
+  const short=/youtu\.be\/([a-zA-Z0-9_-]{11})/;
+  // Handle youtube.com/watch?v=ID
+  const long=/[?&]v=([a-zA-Z0-9_-]{11})/;
+  // Handle youtube.com/embed/ID
+  const embed=/embed\/([a-zA-Z0-9_-]{11})/;
+  const m=url.match(short)||url.match(long)||url.match(embed);
+  return m?m[1]:url.length===11?url:'';
+}
+function syncStats(){
+  const s=store.stats;
+  // Update counters targets
+  const subEl=g('cSubs'); if(subEl){ const n=parseInt(String(s.subscribers).replace(/,/g,''))||10400; subEl.dataset.target=n; }
+  const vidEl=g('cVids'); if(vidEl){ vidEl.dataset.target=parseInt(s.videos)||527; }
+  const prvEl=g('cProvs'); if(prvEl){ prvEl.dataset.target=parseInt(s.provinces)||5; }
+  const schEl=g('cSchs'); if(schEl){ schEl.dataset.target=parseInt(s.scholarships)||94; }
+}
+function updateCounts(){
+  ['news','videos','scholarships','resources','gallery','team','contacts','subscribers'].forEach(k=>{
+    const n=store[k]?.length??0;
+    const c=g(`cnt-${k}`);if(c)c.textContent=n;
+    const d=g(`ds-${k}`);if(d)d.textContent=n;
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ── PUBLIC RENDERERS ──
+// ═══════════════════════════════════════════════════════════════
+
+// ── NEWS CARD ──
+function newsCardHTML(item){
+  const bg=item.image
+    ?`background-image:url('${esc(item.image)}')`
+    :`background:linear-gradient(135deg,${esc(item.tagColor||'#16803C')},${esc(item.tagColor||'#16803C')}aa,#0c2a44)`;
+  return `<article class="news-card" onclick="go('newsDetail',${item.id})">
+    <div class="nc-img">
+      <div class="nc-img-bg" style="${bg};background-size:cover;background-position:center"></div>
+      <span class="nc-tag badge" style="background:${esc(item.tagColor||'#16803C')}22;color:${esc(item.tagColor||'#16803C')};border:1px solid ${esc(item.tagColor||'#16803C')}44">${esc(item.tag)}</span>
+    </div>
+    <div class="nc-body">
+      <div class="nc-meta">
+        <span>📅 ${esc(item.date||'')}</span>
+        ${item.source?`<span class="nc-meta-dot"></span><span>${esc(item.source)}</span>`:''}
+        ${item.province?`<span class="nc-meta-dot"></span><span>📍${esc(item.province)}</span>`:''}
+      </div>
+      <h3>${esc(item.title)}</h3>
+      <p>${esc(item.excerpt||'').slice(0,130)}${(item.excerpt||'').length>130?'…':''}</p>
+      <div class="nc-footer">
+        <span class="nc-read">Read more →</span>
+        <span class="nc-time">⏱ ${esc(item.readTime||'3 min read')}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+// ── VIDEO CARD ──
+function videoCardHTML(v){
+  const thumb=ytThumb(v.ytId||'');
+  return `<div class="vid-card" onclick="openYt('${esc(v.ytId||'')}','${esc(v.title)}')">
+    <div class="vt">
+      <div class="vt-bg" style="background-image:url('${thumb}');background-size:cover;background-position:center"></div>
+      <div class="vt-overlay">
+        <div class="play-ring"><svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+      </div>
+      ${v.duration?`<span class="vt-dur">${esc(v.duration)}</span>`:''}
+      ${v.featured?`<span class="vt-feat badge" style="background:rgba(255,200,0,.9);color:#7a4100">⭐ Featured</span>`:''}
+    </div>
+    <div class="vb">
+      <div class="vb-cat"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5a3 3 0 00-2.1 2.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>${esc(v.category||'General')}</div>
+      <h3>${esc(v.title)}</h3>
+      ${v.description?`<p>${esc(v.description)}</p>`:''}
+      <div class="vb-meta"><span>👁 ${esc(v.views||'0')}</span><span>📅 ${esc(v.date||'')}</span></div>
+    </div>
+  </div>`;
+}
+
+// ── RESOURCE CARD ──
+function resourceCardHTML(r){
+  const hasPdf=!!(r.pdfUrl||r.pdfData);
+  const hasCover=!!(r.coverImage);
+  return `<div class="res-card">
+    <div class="rc-cover" style="${hasCover?`background-image:url('${esc(r.coverImage)}')`:`background:linear-gradient(135deg,${esc(r.colorPale||'#f1f5f9')},${esc(r.colorPale||'#f1f5f9')})`}">
+      ${hasCover?`<div class="rc-cover-bg" style="background-image:url('${esc(r.coverImage)}')"></div>`:''}
+      <span class="rc-icon-big">${r.icon||'📄'}</span>
+      ${hasPdf?`<span class="rc-pdf-badge">PDF</span>`:''}
+    </div>
+    <div class="rc-body">
+      <span class="rc-cat">${esc(r.category||'Resource')}</span>
+      <h3>${esc(r.title)}</h3>
+      <p>${esc(r.desc||r.description||'')}</p>
+      ${r.count?`<span style="font-size:12px;font-weight:700;color:var(--muted2)">${esc(r.count)}</span>`:''}
+      <div class="rc-footer">
+        ${hasPdf?`<button class="rc-btn rc-btn-view" onclick="event.stopPropagation();openPdf('${esc(r.pdfUrl||'')}','${esc(r.title)}')">👁 Read</button>
+        <a class="rc-btn rc-btn-dl" href="${esc(r.pdfUrl||'#')}" download onclick="event.stopPropagation()">⬇ Download</a>`
+        :`<button class="rc-btn rc-btn-view" onclick="event.stopPropagation();go('resources')" style="flex:2">View Resource</button>`}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── SCHOLARSHIP CARD ──
+function scholarshipCardHTML(s){
+  const cls={Open:'st-open','Coming Soon':'st-soon',Closed:'st-closed'}[s.status]||'st-open';
+  const bg=s.image?`background-image:url('${esc(s.image)}')`:`background:linear-gradient(135deg,#0f172a,#1e293b)`;
+  return `<div class="sch-card">
+    <div class="sc-img"><div class="sc-img-bg" style="${bg};background-size:cover;background-position:center"></div>
+      <span class="sc-status badge ${cls}">${esc(s.status)}</span>
+    </div>
+    <div class="sc-body">
+      <div class="sc-title">${esc(s.title)}</div>
+      <div class="sc-provider">🏛 ${esc(s.provider)} · ${esc(s.country||'')}</div>
+      ${s.description?`<div class="sc-desc">${esc(s.description)}</div>`:''}
+      <div class="sc-grid2">
+        <div class="sc-item"><div class="sc-item-lbl">Amount</div><div class="sc-item-val sc-amount">💰 ${esc(s.amount||'—')}</div></div>
+        <div class="sc-item"><div class="sc-item-lbl">Level</div><div class="sc-item-val">🎓 ${esc(s.level||'—')}</div></div>
+        <div class="sc-item"><div class="sc-item-lbl">Deadline</div><div class="sc-item-val">📅 ${esc(s.deadline||'—')}</div></div>
+        <div class="sc-item"><div class="sc-item-lbl">Country</div><div class="sc-item-val">🌍 ${esc(s.country||'—')}</div></div>
+      </div>
+      ${s.eligibility?`<div style="background:var(--s2);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:var(--muted)"><strong style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink2)">Eligibility</strong><p style="margin-top:4px">${esc(s.eligibility)}</p></div>`:''}
+      ${s.applyUrl&&s.status==='Open'?`<a href="${esc(s.applyUrl)}" target="_blank" class="btn btn-g btn-full" style="border-radius:10px;text-decoration:none;margin-top:auto">Apply Now →</a>`
+      :s.status==='Coming Soon'?`<button class="btn btn-full" style="background:var(--s3);color:var(--muted);cursor:default;border-radius:10px">⏳ Opening Soon</button>`
+      :`<button class="btn btn-full" style="background:#fee2e2;color:var(--red);cursor:default;border-radius:10px">🔒 Applications Closed</button>`}
+    </div>
+  </div>`;
+}
+
+// ── GALLERY ITEM ──
+function galItemHTML(item,idx){
+  const bg=item.image?`background-image:url('${esc(item.image)}');background-size:cover;background-position:center`:`background:${esc(item.bg||'#1e293b')}`;
+  return `<div class="gi${item.span==2?' gi-w2':''}" onclick="openLightbox(${idx})" title="${esc(item.label)}">
+    <div class="gi-bg" style="${bg}"></div>
+    <div class="gi-overlay"><div class="gi-cap">${esc(item.label)}<small>${esc(item.caption||'')}</small></div></div>
+  </div>`;
+}
+
+// ─────────────────────────────────────────────────────
+// HOME
+// ─────────────────────────────────────────────────────
+function renderHome(){
+  const ng=g('homeNewsGrid');
+  if(ng)ng.innerHTML=store.news.length?store.news.slice(0,6).map(n=>newsCardHTML(n)).join(''):`<div class="empty-state"><div class="es-icon">📰</div><p>No articles yet — add via Admin CMS</p></div>`;
+  const vg=g('homeVideosGrid');
+  if(vg)vg.innerHTML=store.videos.length?store.videos.slice(0,6).map(v=>videoCardHTML(v)).join(''):`<div class="empty-state"><div class="es-icon">🎥</div><p>No videos yet</p></div>`;
+  const rg=g('homeResGrid');
+  if(rg)rg.innerHTML=store.resources.length?store.resources.slice(0,6).map(r=>resourceCardHTML(r)).join(''):`<div class="empty-state"><div class="es-icon">📖</div><p>No resources yet</p></div>`;
+  const gg=g('homeGalGrid');
+  if(gg)gg.innerHTML=store.gallery.length?store.gallery.map((item,i)=>galItemHTML(item,i)).join(''):`<div class="empty-state" style="grid-column:span 3"><div class="es-icon">🖼</div><p>No gallery items yet</p></div>`;
+}
+
+// ─────────────────────────────────────────────────────
+// NEWS LIST
+// ─────────────────────────────────────────────────────
+function renderNewsList(){
+  const tags=['All',...new Set(store.news.map(n=>n.tag).filter(Boolean))];
+  const fb=g('newsFilters');
+  if(fb)fb.innerHTML=tags.map(t=>`<button class="filter-pill${t===newsFilter?' active':''}" onclick="setNF('${esc(t)}')">${esc(t)}</button>`).join('');
+  const filtered=newsFilter==='All'?store.news:store.news.filter(n=>n.tag===newsFilter);
+  const el=g('newsListGrid');
+  if(el)el.innerHTML=filtered.length?filtered.map(n=>newsCardHTML(n)).join(''):`<div class="empty-state"><div class="es-icon">📰</div><p>No articles found</p></div>`;
+}
+function setNF(t){newsFilter=t;renderNewsList();}
+
+// ─────────────────────────────────────────────────────
+// NEWS DETAIL
+// ─────────────────────────────────────────────────────
+function renderNewsDetail(id){
+  const a=store.news.find(n=>n.id==id);
+  const el=g('ndWrap');if(!a||!el)return;
+  const bg=a.image?`background-image:url('${esc(a.image)}');background-size:cover;background-position:center`:`background:linear-gradient(135deg,${esc(a.tagColor||'#16803C')}cc,#0c2a44)`;
+  el.innerHTML=`
+    <button class="back-btn" onclick="go('news')">← Back to News</button>
+    <div class="nd-hero"><div class="nd-hero-bg" style="${bg}"></div></div>
+    <div class="nd-meta">
+      <span class="badge" style="background:${esc(a.tagColor||'#16803C')}22;color:${esc(a.tagColor||'#16803C')};border:1px solid ${esc(a.tagColor||'#16803C')}44">${esc(a.tag||'')}</span>
+      <span style="font-size:13px;color:var(--muted2)">📅 ${esc(a.date||'')}</span>
+      ${a.source?`<span style="font-size:13px;color:var(--muted2)">· ✍ ${esc(a.source)}</span>`:''}
+      <span style="font-size:13px;color:var(--muted2)">⏱ ${esc(a.readTime||'3 min read')}</span>
+    </div>
+    <h1 class="nd-title">${esc(a.title)}</h1>
+    <p class="nd-excerpt">${esc(a.excerpt||'')}</p>
+    <div class="nd-body">${esc(a.body||'').split('\n').map(l=>l?`<p>${l}</p>`:'').join('')}</div>
+    ${a.province?`<div class="nd-province" style="margin-top:32px">📍 <div><strong>Province / Region:</strong><span style="color:var(--muted);margin-left:8px">${esc(a.province)}</span></div></div>`:''}
+    <div class="nd-cta">
+      ${a.linkUrl?`<a href="${esc(a.linkUrl)}" target="_blank" class="btn btn-g">${esc(a.linkLabel||'Read More')} →</a>`:''}
+      <button class="btn btn-outline" onclick="go('news')">← Back to News</button>
+    </div>
+    <div style="margin-top:64px;padding-top:40px;border-top:2px solid var(--border)">
+      <h2 style="font-size:22px;margin-bottom:24px">Related Articles</h2>
+      <div class="news-grid">${store.news.filter(n=>n.id!=id).slice(0,3).map(n=>newsCardHTML(n)).join('')}</div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────
+// VIDEOS
+// ─────────────────────────────────────────────────────
+function renderVideos(){
+  const cats=['All',...new Set(store.videos.map(v=>v.category).filter(Boolean))];
+  const fb=g('videoFilters');
+  if(fb)fb.innerHTML=cats.map(c=>`<button class="filter-pill${c===videoFilter?' active':''}" onclick="setVF('${esc(c)}')">${esc(c)}</button>`).join('');
+  const filtered=videoFilter==='All'?store.videos:store.videos.filter(v=>v.category===videoFilter);
+  const el=g('videosGrid');
+  if(el)el.innerHTML=filtered.length?filtered.map(v=>videoCardHTML(v)).join(''):`<div class="empty-state"><div class="es-icon">🎥</div><p>No videos found</p></div>`;
+}
+function setVF(c){videoFilter=c;renderVideos();}
+function openYt(ytId,title){
+  if(!ytId)return;
+  const ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:20px;cursor:pointer';
+  ov.innerHTML=`<div style="width:100%;max-width:860px;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.8);cursor:default" onclick="event.stopPropagation()">
+    <div style="background:#0f172a;padding:13px 18px;display:flex;justify-content:space-between;align-items:center">
+      <span style="color:#fff;font-size:14px;font-weight:600;font-family:var(--body)">${esc(title)}</span>
+      <button style="background:rgba(255,255,255,.1);border:none;color:#fff;width:32px;height:32px;border-radius:8px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="this.closest('[style]').remove()">×</button>
+    </div>
+    <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0" width="100%" height="480" frameborder="0" allow="accelerometer;autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p style="color:rgba(255,255,255,.45);font-size:12px;font-family:var(--body)">Click outside to close</p>`;
+  ov.onclick=e=>{if(e.target===ov)ov.remove();};
+  document.body.appendChild(ov);
+}
+
+// ─────────────────────────────────────────────────────
+// RESOURCES
+// ─────────────────────────────────────────────────────
+function renderResources(){
+  const cats=['All',...new Set(store.resources.map(r=>r.category).filter(Boolean))];
+  const fb=g('resFilters');
+  if(fb)fb.innerHTML=cats.map(c=>`<button class="filter-pill${c===resFilter?' active':''}" onclick="setRF('${esc(c)}')">${esc(c)}</button>`).join('');
+  const filtered=resFilter==='All'?store.resources:store.resources.filter(r=>r.category===resFilter);
+  const el=g('resListGrid');
+  if(el)el.innerHTML=filtered.length?filtered.map(r=>resourceCardHTML(r)).join(''):`<div class="empty-state"><div class="es-icon">📖</div><p>No resources found</p></div>`;
+}
+function setRF(c){resFilter=c;renderResources();}
+function openPdf(url,title){
+  if(!url)return;
+  g('pdfTitle').textContent=title||'Document';
+  g('pdfFrame').src=url;
+  g('pdfDlBtn').href=url;
+  g('pdfDlBtn').download=title||'document';
+  g('pdfModal').classList.add('open');
+}
+function closePdf(){g('pdfModal').classList.remove('open');g('pdfFrame').src='';}
+
+// ─────────────────────────────────────────────────────
+// SCHOLARSHIPS
+// ─────────────────────────────────────────────────────
+function renderScholarships(){
+  // Populate filters
+  const statuses=['All','Open','Coming Soon','Closed'];
+  const fb=g('schStatusFilters');
+  if(fb)fb.innerHTML=statuses.map(s=>`<button class="filter-pill${s===schStatus?' active':''}" onclick="setSSF('${esc(s)}')">${esc(s)}</button>`).join('');
+  // Populate country & level selects
+  const countries=[...new Set(store.scholarships.map(s=>s.country).filter(Boolean))];
+  const levels=[...new Set(store.scholarships.map(s=>s.level).filter(Boolean))];
+  const cf=g('schCountryFilter'),lf=g('schLevelFilter');
+  if(cf){const cur=cf.value;cf.innerHTML=`<option value="">All Countries</option>${countries.map(c=>`<option value="${esc(c)}"${cur===c?' selected':''}>${esc(c)}</option>`).join('')}`;}
+  if(lf){const cur=lf.value;lf.innerHTML=`<option value="">All Levels</option>${levels.map(l=>`<option value="${esc(l)}"${cur===l?' selected':''}>${esc(l)}</option>`).join('')}`;}
+  schCountry=cf?.value||''; schLevel=lf?.value||'';
+  let filtered=store.scholarships;
+  if(schStatus!=='All')filtered=filtered.filter(s=>s.status===schStatus);
+  if(schCountry)filtered=filtered.filter(s=>s.country===schCountry);
+  if(schLevel)filtered=filtered.filter(s=>s.level===schLevel);
+  const el=g('schListGrid');
+  if(el)el.innerHTML=filtered.length?filtered.map(s=>scholarshipCardHTML(s)).join(''):`<div class="empty-state"><div class="es-icon">🎓</div><p>No scholarships match the selected filters</p></div>`;
+}
+function setSSF(s){schStatus=s;renderScholarships();}
+
+// ─────────────────────────────────────────────────────
+// GALLERY + LIGHTBOX
+// ─────────────────────────────────────────────────────
+function renderGallery(){
+  const el=g('galFullGrid');
+  if(el)el.innerHTML=store.gallery.length?store.gallery.map((item,i)=>galItemHTML(item,i)).join(''):`<div class="empty-state" style="grid-column:span 3"><div class="es-icon">🖼</div><p>No gallery items yet</p></div>`;
+  lbItems=store.gallery;
+}
+function openLightbox(idx){
+  lbItems=store.gallery;
+  if(!lbItems.length)return;
+  lbIdx=idx;
+  const item=lbItems[lbIdx];
+  const el=g('lightbox'),img=g('lbImg'),cap=g('lbCap'),ctr=g('lbCounter');
+  if(!el)return;
+  img.src=item.image||''; img.alt=item.label||'';
+  img.style.display=item.image?'block':'none';
+  const prev=el.querySelector('.lb-prev-bg')||document.createElement('div');
+  if(!item.image){
+    prev.style.cssText=`width:400px;height:300px;border-radius:16px;${`background:${item.bg||'#1e293b'}`};display:flex;align-items:center;justify-content:center;font-size:64px`;
+    prev.className='lb-prev-bg'; prev.textContent='🖼';
+    if(!el.querySelector('.lb-prev-bg'))img.after(prev);
+    prev.style.display='flex';
+  } else { const pb=el.querySelector('.lb-prev-bg'); if(pb)pb.style.display='none'; }
+  cap.textContent=`${item.label||''} ${item.caption?'· '+item.caption:''}`;
+  ctr.textContent=`${lbIdx+1} / ${lbItems.length}`;
+  el.classList.add('open');
+}
+function lbNav(dir){lbIdx=(lbIdx+dir+lbItems.length)%lbItems.length;openLightbox(lbIdx);}
+function closeLightbox(){g('lightbox').classList.remove('open');}
+document.addEventListener('keydown',e=>{
+  const lb=g('lightbox');
+  if(!lb?.classList.contains('open'))return;
+  if(e.key==='ArrowRight')lbNav(1);
+  else if(e.key==='ArrowLeft')lbNav(-1);
+  else if(e.key==='Escape')closeLightbox();
+});
+
+// ─────────────────────────────────────────────────────
+// TEAM
+// ─────────────────────────────────────────────────────
+function renderTeam(){
+  const el=g('teamGrid'); if(!el)return;
+  el.innerHTML=store.team.length?store.team.map(m=>`
+    <div class="tc">
+      <div class="tc-photo">
+        ${m.image?`<div class="tc-photo-bg" style="background-image:url('${esc(m.image)}')"></div>`:
+        `<div class="tc-photo-bg" style="background:${esc(m.grad||'linear-gradient(135deg,#16803C,#1d4ed8)')}"></div>`}
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px;z-index:1">
+          <div style="color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.85">${esc(m.role||'')}</div>
+          <div style="color:#fff;font-size:17px;font-weight:700;font-family:var(--display)">${esc(m.name||'')}</div>
+        </div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-role">${esc(m.role||'')}</div>
+        <h3>${esc(m.name||'')}</h3>
+        <p>${esc(m.bio||'')}</p>
+        <div class="tc-socials">
+          ${m.email?`<a href="mailto:${esc(m.email)}" class="tc-soc" title="Email">✉</a>`:''}
+          ${m.twitter?`<a href="${esc(m.twitter)}" target="_blank" class="tc-soc" title="Twitter">𝕏</a>`:''}
+          ${m.linkedin?`<a href="${esc(m.linkedin)}" target="_blank" class="tc-soc" title="LinkedIn">in</a>`:''}
+        </div>
+      </div>
+    </div>`).join(''):`<div class="empty-state"><div class="es-icon">👥</div><p>No team members yet</p></div>`;
+}
+
+// ─────────────────────────────────────────────────────
+// IMPACT STATS
+// ─────────────────────────────────────────────────────
+function renderImpactStats(){
+  const el=g('impactGrid'); if(!el)return;
+  const s=store.stats;
+  el.innerHTML=[
+    {e:'📺',n:s.subscribers,l:'YouTube Subscribers'},
+    {e:'🎬',n:String(s.videos),l:'Videos Published'},
+    {e:'🗺️',n:String(s.provinces||5),l:'Provinces Covered'},
+    {e:'🏫',n:String(s.schools||680),l:'Schools Covered'},
+    {e:'🎓',n:String(s.scholarships||94)+'+',l:'Scholarships Tracked'},
+    {e:'📰',n:String(store.news.length)+'+ ',l:'News Articles'},
+  ].map(i=>`<div class="istat"><div class="istat-icon">${i.e}</div><div class="istat-num">${esc(i.n||'—')}</div><div class="istat-lbl">${i.l}</div></div>`).join('');
+}
+
+// ─────────────────────────────────────────────────────
+// CONTACT FORM
+// ─────────────────────────────────────────────────────
+async function submitContact(){
+  const name=gv('cf-name'),email=gv('cf-email'),subject=gv('cf-subject'),message=gv('cf-message');
+  const okDiv=g('cf-ok'),errDiv=g('cf-err');
+  [okDiv,errDiv].forEach(d=>{if(d)d.classList.remove('show');});
+  let valid=true;
+  ['cf-name','cf-email','cf-message'].forEach(id=>{const el=g(id);if(el){const empty=!el.value.trim();el.classList.toggle('err',empty);if(empty)valid=false;}});
+  if(!valid){if(errDiv)errDiv.classList.add('show');return;}
+  const btn=g('cfBtn');if(btn){btn.textContent='Sending…';btn.disabled=true;}
+  try{
+    const r=await apiFetch('contacts',{method:'POST',body:JSON.stringify({name,email,subject,message})});
+    if(r?.ok){
+      store.contacts.push({id:nextId(store.contacts),name,email,subject,message,submitted_at:new Date().toISOString(),is_read:false});
+      if(okDiv)okDiv.classList.add('show');
+      ['cf-name','cf-email','cf-phone','cf-subject','cf-message'].forEach(id=>{const el=g(id);if(el)el.value='';});
+      setTimeout(()=>okDiv?.classList.remove('show'),6000);
+    } else { if(errDiv)errDiv.classList.add('show'); }
+  }catch{
+    store.contacts.push({id:nextId(store.contacts),name,email,subject,message,submitted_at:new Date().toISOString(),is_read:false});
+    if(okDiv)okDiv.classList.add('show');
+    ['cf-name','cf-email','cf-phone','cf-subject','cf-message'].forEach(id=>{const el=g(id);if(el)el.value='';});
+    setTimeout(()=>okDiv?.classList.remove('show'),6000);
+  } finally {if(btn){btn.textContent='Send Message →';btn.disabled=false;}}
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ── ADMIN ──
+// ═══════════════════════════════════════════════════════════════
+function openAdminLogin(){g('adminLogin').classList.add('show');}
+function closeAdminLogin(){g('adminLogin').classList.remove('show');}
+
+async function doLogin(){
+  const u=gv('loginUser'),p=gv('loginPass');
+  const btn=g('loginBtn'),err=g('loginErr');
+  err.classList.remove('show');
+  if(!u||!p){err.textContent='Enter username and password.';err.classList.add('show');return;}
+  btn.textContent='Signing in…';btn.disabled=true;
+  try{
+    const r=await apiFetch('auth/login',{method:'POST',body:JSON.stringify({username:u,password:p})});
+    if(r?.ok){token=r.token;adminUser=u;}
+    else{err.textContent=r?.error||'Invalid credentials.';err.classList.add('show');btn.textContent='Sign In →';btn.disabled=false;return;}
+  }catch{
+    err.textContent='Cannot reach server.';err.classList.add('show');btn.textContent='Sign In →';btn.disabled=false;return;
+  }
+  localStorage.setItem('edu_token',token);localStorage.setItem('edu_user',adminUser);
+  btn.textContent='Sign In →';btn.disabled=false;
+  enterAdmin();
+}
+
+function enterAdmin(){
+  closeAdminLogin();
+  g('pubSite').style.display='none';
+  g('adminApp').classList.add('on');
+  g('admUser').textContent=adminUser;
+  g('admAv').textContent=adminUser[0]?.toUpperCase()||'A';
+  loadAdminData();
+}
+function exitAdmin(){g('adminApp').classList.remove('on');g('pubSite').style.display='block';renderHome();}
+function logout(){token='';adminUser='';localStorage.removeItem('edu_token');localStorage.removeItem('edu_user');exitAdmin();}
+
+async function loadAdminData(){
+  loadBar(30);
+  try{
+    const [nR,vR,sR,rR,gR,tR,cR,subR,stR]=await Promise.all([
+      apiFetch('news'),apiFetch('videos'),
+      apiFetch('scholarships'),apiFetch('resources'),
+      apiFetch('gallery'),apiFetch('team'),
+      apiFetch('contacts'),apiFetch('subscribers'),
+      apiFetch('stats'),
+    ]);
+    if(Array.isArray(nR))          store.news=nR; else if(nR?.news) store.news=nR.news;
+    if(Array.isArray(vR))        store.videos=vR; else if(vR?.videos) store.videos=vR.videos;
+    if(Array.isArray(sR))  store.scholarships=sR; else if(sR?.scholarships) store.scholarships=sR.scholarships;
+    if(Array.isArray(rR)) store.resources=rR;
+    if(Array.isArray(gR)) store.gallery=gR;
+    if(Array.isArray(tR)) store.team=tR;
+    if(Array.isArray(cR))      store.contacts=cR; else if(cR?.contacts) store.contacts=cR.contacts;
+    if(Array.isArray(subR)) store.subscribers=subR; else if(subR?.subscribers) store.subscribers=subR.subscribers;
+    if(stR){
+      Object.assign(store.stats,stR);
+      ['subscribers','videos','provinces','schools','scholarships'].forEach(k=>{
+        const el=g(`st-${k}`);if(el&&stR[k]!==undefined)el.value=stR[k];
+      });
+    }
+  }catch{}
+  loadBar(100);
+  updateCounts();
+  renderAdminPanel();
+}
+
+// ─────────────────────────────────────────────────────
+// PANEL NAV
+// ─────────────────────────────────────────────────────
+function showPanel(name){
+  document.querySelectorAll('.ap').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(b=>b.classList.remove('active'));
+  g(`panel-${name}`)?.classList.add('active');
+  document.querySelectorAll('.ni').forEach(b=>{if(b.getAttribute('onclick')?.includes(`'${name}'`))b.classList.add('active');});
+  curPanel=name;
+  renderAdminPanel();
+}
+function renderAdminPanel(){
+  if(['news','videos','scholarships','resources','gallery','team','contacts','subscribers'].includes(curPanel))
+    renderTbl(curPanel);
+}
+
+// ─────────────────────────────────────────────────────
+// ADMIN TABLE
+// ─────────────────────────────────────────────────────
+function renderTbl(type,search=''){
+  const el=g(`tbl-${type}`);if(!el)return;
+  let rows=[...(store[type]||[])];
+  if(search){const q=search.toLowerCase();rows=rows.filter(r=>JSON.stringify(r).toLowerCase().includes(q));}
+  if(!rows.length){el.innerHTML=`<div class="empty-state"><div class="es-icon">${{news:'📰',videos:'🎥',scholarships:'🎓',resources:'📖',gallery:'🖼',team:'👥',contacts:'💬',subscribers:'📧'}[type]||'📄'}</div><h3>No ${type} yet</h3><p>Click "+ New" to add the first one.</p></div>`;return;}
+  const heads={
+    news:['Img','Title','Tag','Province','Date','Featured',''],
+    videos:['Thumb','Title','Category','Duration','Views','Featured',''],
+    scholarships:['Img','Title','Provider','Deadline','Status','Amount',''],
+    resources:['','Title','Category','Count','PDF',''],
+    gallery:['Preview','Label','Span','Caption',''],
+    team:['Photo','Name','Role','',''],
+    contacts:['Name','Email','Subject','Date',''],
+    subscribers:['Email','Name','Subscribed',''],
+  };
+  const ths=(heads[type]||[]).map(h=>`<th>${h}</th>`).join('');
+  const trs=rows.map(r=>adminRow(type,r)).join('');
+  el.innerHTML=`<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+}
+function filterTbl(type,val){renderTbl(type,val);}
+
+function adminRow(type,r){
+  const del=`<td class="td-acts"><button class="abtn abtn-gh" style="font-size:11.5px" onclick="openEditModal('${type}',${r.id})">✏ Edit</button><button class="abtn abtn-d" style="font-size:11.5px" onclick="delItem('${type}',${r.id})">🗑 Del</button></td>`;
+  switch(type){
+    case 'news':{
+      const bg=r.image?`background-image:url('${esc(r.image)}');background-size:cover`:`background:linear-gradient(135deg,${esc(r.tagColor||'#16803C')},#0c2a44)`;
+      return `<tr><td><div style="width:52px;height:38px;border-radius:8px;${bg}"></div></td>
+        <td class="td-main">${esc(r.title)}<div class="td-sub">${esc(r.excerpt||'').slice(0,80)}…</div></td>
+        <td><span class="ab ab-news" style="background:${esc(r.tagColor||'#16803C')}22;color:${esc(r.tagColor||'#16803C')}">${esc(r.tag||'')}</span></td>
+        <td>${esc(r.province||'')}</td><td style="white-space:nowrap">${esc(r.date||'')}</td>
+        <td>${r.featured?'<span class="ab ab-feat">⭐ Yes</span>':'—'}</td>${del}</tr>`;}
+    case 'videos':{
+      const thumb=ytThumb(r.ytId||'');
+      return `<tr><td><div style="width:72px;height:42px;border-radius:8px;background-image:url('${thumb}');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(255,255,255,.7)"></div></td>
+        <td class="td-main">${esc(r.title)}<div class="td-sub">${esc(r.description||'').slice(0,70)}</div></td>
+        <td><span style="font-size:12px;color:#dc2626;font-weight:600">${esc(r.category||'')}</span></td>
+        <td>${esc(r.duration||'')}</td><td>${esc(r.views||'')}</td>
+        <td>${r.featured?'<span class="ab ab-feat">⭐</span>':'—'}</td>${del}</tr>`;}
+    case 'scholarships':{
+      const cls={Open:'ab-open','Coming Soon':'ab-soon',Closed:'ab-closed'}[r.status]||'ab-open';
+      const bg=r.image?`background-image:url('${esc(r.image)}');background-size:cover`:`background:linear-gradient(135deg,#0f172a,#1e293b)`;
+      return `<tr><td><div style="width:52px;height:38px;border-radius:8px;${bg}"></div></td>
+        <td class="td-main">${esc(r.title)}<div class="td-sub">${esc(r.description||'').slice(0,70)}</div></td>
+        <td>${esc(r.provider||'')}</td><td style="white-space:nowrap">${esc(r.deadline||'')}</td>
+        <td><span class="ab ${cls}">${esc(r.status||'')}</span></td>
+        <td><strong style="color:#16803C">${esc(r.amount||'')}</strong></td>${del}</tr>`;}
+    case 'resources':
+      return `<tr><td style="font-size:22px;text-align:center">${r.icon||'📄'}</td>
+        <td class="td-main">${esc(r.title)}</td>
+        <td><span style="font-size:12px;font-weight:600;color:var(--g)">${esc(r.category||'')}</span></td>
+        <td>${esc(r.count||'')}</td>
+        <td>${r.pdfUrl?`<a href="${esc(r.pdfUrl)}" target="_blank" class="abtn abtn-g" style="font-size:11px">View PDF</a>`:'—'}</td>${del}</tr>`;
+    case 'gallery':
+      return `<tr><td><div style="width:80px;height:50px;border-radius:8px;${r.image?`background-image:url('${esc(r.image)}');background-size:cover`:`background:${esc(r.bg||'#1e293b')}`}"></div></td>
+        <td class="td-main">${esc(r.label||'')}</td><td>Col-${r.span||1}</td>
+        <td style="color:#64748b;font-size:12.5px">${esc(r.caption||'')}</td>${del}</tr>`;
+    case 'team':
+      return `<tr><td><div style="width:46px;height:46px;border-radius:50%;${r.image?`background-image:url('${esc(r.image)}');background-size:cover`:`background:${esc(r.grad||'#16803C')}`}"></div></td>
+        <td class="td-main">${esc(r.name||'')}</td><td>${esc(r.role||'')}</td>
+        <td><div class="td-sub">${esc(r.bio||'').slice(0,60)}…</div></td>${del}</tr>`;
+    case 'contacts':
+      return `<tr style="cursor:pointer" onclick="openMsg(${r.id})">
+        <td class="td-main" style="${r.is_read?'':'font-weight:700'}">${esc(r.name||'')}${!r.is_read?'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ac);margin-left:7px;vertical-align:middle"></span>':''}</td>
+        <td>${esc(r.email||'')}</td><td>${esc(r.subject||'')}</td>
+        <td style="white-space:nowrap">${(r.submitted_at||'').slice(0,10)||'—'}</td>
+        <td class="td-acts" onclick="event.stopPropagation()"><button class="abtn abtn-d" onclick="delItem('contacts',${r.id})">🗑</button></td></tr>`;
+    case 'subscribers':
+      return `<tr><td>${esc(r.email||'')}</td><td>${esc(r.name||'—')}</td>
+        <td>${(r.subscribed_at||'').slice(0,10)||'—'}</td>
+        <td class="td-acts"><button class="abtn abtn-d" onclick="delItem('subscribers',${r.id},'${esc(r.email||'')}')">Remove</button></td></tr>`;
+    default:return '';
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// MODAL OPEN/CLOSE
+// ─────────────────────────────────────────────────────
+const TYPE_LABELS={news:'Article',videos:'Video',scholarships:'Scholarship',resources:'Resource',gallery:'Gallery Item',team:'Team Member'};
+function openModal(type,data=null){
+  modalType=type;modalId=data?.id??null;
+  g('modalTitle').textContent=(data?'Edit ':'New ')+(TYPE_LABELS[type]||type);
+  g('modalBody').innerHTML=buildForm(type,data);
+  g('formModal').classList.add('open');
+  if(type==='videos')initYtPrev();
+  updateGP();
+}
+function openEditModal(type,id){const item=store[type]?.find(r=>r.id==id);if(item)openModal(type,item);}
+function closeModal(){g('formModal').classList.remove('open');modalType=null;modalId=null;}
+
+// ─────────────────────────────────────────────────────
+// FORM BUILDERS
+// ─────────────────────────────────────────────────────
+function v(d,k,fb=''){return esc(d?.[k]??fb);}
+function sel(d,k,opts){return opts.map(o=>`<option value="${esc(o)}"${v(d,k)===esc(o)?' selected':''}>${esc(o)}</option>`).join('');}
+function ddZone(id,accept,label){return `<div class="dd-zone" onclick="g('${id}').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event,'${id}')"><input type="file" id="${id}" accept="${accept}" onchange="handleFile(event,'${id}')"/><div class="dd-icon">📁</div><div class="dd-txt">${label}</div><div class="dd-sub">Drag &amp; drop or click to browse</div></div>`;}
+
+function buildForm(type,d){
+  switch(type){
+    case 'news':return `
+      <div class="af"><label>Title *</label><input id="f-title" value="${v(d,'title')}" placeholder="Article headline"/></div>
+      <div class="af"><label>Excerpt / Summary *</label><textarea id="f-excerpt" rows="3" placeholder="Short summary shown on cards…">${v(d,'excerpt')}</textarea></div>
+      <div class="af"><label>Full Body *</label><textarea id="f-body" rows="8" placeholder="Full article text — each paragraph on a new line.">${v(d,'body')}</textarea></div>
+      <div class="af2">
+        <div class="af"><label>Tag / Category *</label><select id="f-tag"><option value="">Select…</option>${sel(d,'tag',['Scholarship','Exams','University','Policy','Kivu','International','Careers','Technology','TVET','General'])}</select></div>
+        <div class="af"><label>Tag Colour</label><div class="sw-row"><div class="sw" id="tagSw" style="background:${v(d,'tagColor','#16803C')}"></div><input id="f-tagColor" value="${v(d,'tagColor','#16803C')}" placeholder="#16803C" oninput="g('tagSw').style.background=this.value"/></div></div>
+      </div>
+      <div class="af2">
+        <div class="af"><label>Source / Author</label><input id="f-source" value="${v(d,'source')}" placeholder="MINEDUC"/></div>
+        <div class="af"><label>Date</label><input id="f-date" value="${v(d,'date')}" placeholder="May 2026"/></div>
+      </div>
+      <div class="af2">
+        <div class="af"><label>Province</label><select id="f-province"><option value="">Select…</option>${sel(d,'province',['All Provinces','Kigali','Eastern Province','Western Province','Northern Province','Southern Province'])}</select></div>
+        <div class="af"><label>Read Time</label><input id="f-readTime" value="${v(d,'readTime','3 min read')}" placeholder="3 min read"/></div>
+      </div>
+      <div class="af"><label>Cover Image URL (optional)</label>
+        <input id="f-image" value="${v(d,'image')}" placeholder="https://…/image.jpg" oninput="prevImg(this.value,'imgPrev')"/>
+        <div class="ip-wrap${d?.image?' show':''}" id="imgPrev"><img src="${v(d,'image')}" alt="preview"/></div>
+        <p class="af-hint">Leave blank to use gradient from tag colour. Or use XAMPP upload.</p>
+      </div>
+      <div class="af2">
+        <div class="af"><label>Apply / Read More Link URL</label><input id="f-linkUrl" value="${v(d,'linkUrl')}" placeholder="https://reb.rw/apply"/></div>
+        <div class="af"><label>Link Button Label</label><input id="f-linkLabel" value="${v(d,'linkLabel','Read More')}" placeholder="Apply Here"/></div>
+      </div>
+      <label class="chk-row"><input type="checkbox" id="f-featured" ${d?.featured?'checked':''}/>Mark as Featured article</label>`;
+
+    case 'videos':return `
+      <div class="af"><label>YouTube URL or Video ID *</label>
+        <input id="f-ytUrl" value="${d?.ytId||''}" placeholder="https://youtube.com/watch?v=dQw4w9WgXcQ or youtu.be/ID" oninput="onYtInput(this.value)"/>
+        <div class="yp-wrap${d?.ytId?' show':''}" id="ytPrev"><iframe id="ytFrame" src="${d?.ytId?`https://www.youtube.com/embed/${d.ytId}?rel=0`:''}" frameborder="0" allow="accelerometer;autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe></div>
+        <p class="af-hint">Supports youtube.com/watch?v=ID and youtu.be/ID — ID is auto-extracted</p>
+      </div>
+      <div class="af"><label>Title *</label><input id="f-title" value="${v(d,'title')}" placeholder="Video title"/></div>
+      <div class="af"><label>Description</label><textarea id="f-description" rows="3" placeholder="What this video covers…">${v(d,'description')}</textarea></div>
+      <div class="af3">
+        <div class="af"><label>Category</label><select id="f-category"><option value="">Select…</option>${sel(d,'category',['Scholarships','Exams','University','Careers','Teacher Training','TVET','Technology','General'])}</select></div>
+        <div class="af"><label>Duration</label><input id="f-duration" value="${v(d,'duration')}" placeholder="18:42"/></div>
+        <div class="af"><label>Views</label><input id="f-views" value="${v(d,'views','0')}" placeholder="24K"/></div>
+      </div>
+      <div class="af2">
+        <div class="af"><label>Date</label><input id="f-date" value="${v(d,'date')}" placeholder="May 2026"/></div>
+        <div class="af"><label>&nbsp;</label><label class="chk-row" style="margin-top:11px"><input type="checkbox" id="f-featured" ${d?.featured?'checked':''}/>Mark as Featured</label></div>
+      </div>`;
+
+    case 'scholarships':return `
+      <div class="af"><label>Scholarship Title *</label><input id="f-title" value="${v(d,'title')}" placeholder="Full scholarship name"/></div>
+      <div class="af"><label>Description *</label><textarea id="f-description" rows="3" placeholder="What the scholarship covers, what it includes…">${v(d,'description')}</textarea></div>
+      <div class="af"><label>Eligibility Criteria</label><textarea id="f-eligibility" rows="2" placeholder="Who can apply — age, nationality, grades, etc.">${v(d,'eligibility')}</textarea></div>
+      <div class="af2">
+        <div class="af"><label>Provider / Organisation *</label><input id="f-provider" value="${v(d,'provider')}" placeholder="MINEDUC"/></div>
+        <div class="af"><label>Country</label><input id="f-country" value="${v(d,'country','Rwanda')}" placeholder="Rwanda"/></div>
+      </div>
+      <div class="af3">
+        <div class="af"><label>Deadline *</label><input id="f-deadline" value="${v(d,'deadline')}" placeholder="July 31, 2026"/></div>
+        <div class="af"><label>Level</label><select id="f-level"><option value="">Select…</option>${sel(d,'level',['Primary','Secondary','University','Postgraduate','University / PG','TVET','Any Level'])}</select></div>
+        <div class="af"><label>Status</label><select id="f-status">${sel(d,'status',['Open','Coming Soon','Closed'])}</select></div>
+      </div>
+      <div class="af2">
+        <div class="af"><label>Amount / Coverage</label><input id="f-amount" value="${v(d,'amount')}" placeholder="Full scholarship"/></div>
+        <div class="af"><label>Apply URL</label><input id="f-applyUrl" value="${v(d,'applyUrl')}" placeholder="https://mineduc.rw/apply"/></div>
+      </div>
+      <div class="af"><label>Thumbnail / Cover Image URL (optional)</label>
+        <input id="f-image" value="${v(d,'image')}" placeholder="https://…/image.jpg" oninput="prevImg(this.value,'schImgPrev')"/>
+        <div class="ip-wrap${d?.image?' show':''}" id="schImgPrev"><img src="${v(d,'image')}" alt="preview"/></div>
+      </div>`;
+
+    case 'resources':return `
+      <div class="af2">
+        <div class="af"><label>Icon (emoji) *</label><input id="f-icon" value="${v(d,'icon','📖')}" placeholder="📖" style="font-size:22px"/></div>
+        <div class="af"><label>Category *</label><select id="f-category"><option value="">Select…</option>${sel(d,'category',['Exams','Scholarships','Guide','Calendar','Directory','Career','Video','General'])}</select></div>
+      </div>
+      <div class="af"><label>Title *</label><input id="f-title" value="${v(d,'title')}" placeholder="Resource name"/></div>
+      <div class="af"><label>Description *</label><textarea id="f-desc" rows="3" placeholder="What this resource contains, who it's for…">${v(d,'desc')||v(d,'description')}</textarea></div>
+      <div class="af2">
+        <div class="af"><label>Count / Stat Label</label><input id="f-count" value="${v(d,'count')}" placeholder="120+ papers"/></div>
+        <div class="af"><label>Accent Colour</label><div class="sw-row"><div class="sw" id="colSw" style="background:${v(d,'color','#16803C')}"></div><input id="f-color" value="${v(d,'color','#16803C')}" oninput="g('colSw').style.background=this.value"/></div></div>
+      </div>
+      <div class="af"><label>Background / Pale Colour</label><div class="sw-row"><div class="sw" id="paleSw" style="background:${v(d,'colorPale','#dcfce7')}"></div><input id="f-colorPale" value="${v(d,'colorPale','#dcfce7')}" oninput="g('paleSw').style.background=this.value"/></div></div>
+      <div class="af"><label>PDF Upload or URL</label>
+        ${ddZone('pdfFileInput','.pdf','Drop PDF file here or click to upload')}
+        <div class="pdf-prev-wrap${d?.pdfUrl?' show':''}" id="pdfPrev"><span class="pdf-prev-icon">📄</span><div class="pdf-prev-info">${d?.pdfUrl?`PDF linked<span>${d.pdfUrl.split('/').pop()}</span>`:'No PDF yet'}</div></div>
+        <div class="prog-bar" id="pdfProg"><div class="prog-fill" id="pdfProgFill"></div></div>
+        <p class="af-hint">— OR paste URL directly:</p>
+        <input id="f-pdfUrl" value="${v(d,'pdfUrl')}" placeholder="https://…/document.pdf or /uploads/resources/file.pdf"/>
+      </div>
+      <div class="af"><label>Cover Image URL (optional)</label>
+        <input id="f-coverImage" value="${v(d,'coverImage')}" placeholder="https://…/cover.jpg" oninput="prevImg(this.value,'resCoverPrev')"/>
+        <div class="ip-wrap${d?.coverImage?' show':''}" id="resCoverPrev"><img src="${v(d,'coverImage')}" alt="cover"/></div>
+      </div>`;
+
+    case 'gallery':return `
+      <div class="af"><label>Label / Caption *</label><input id="f-label" value="${v(d,'label')}" placeholder="Students, Kigali" oninput="updateGP()"/></div>
+      <div class="af"><label>Caption / Location Details</label><input id="f-caption" value="${v(d,'caption')}" placeholder="Students at morning assembly — Kigali City"/></div>
+      <div class="af"><label>Column Span</label><select id="f-span"><option value="1"${(d?.span==1||!d?.span)?' selected':''}>1 column — normal size</option><option value="2"${d?.span==2?' selected':''}>2 columns — wide feature</option></select></div>
+      <div class="af"><label>Photo Upload (drag &amp; drop or click)</label>
+        ${ddZone('galFileInput','image/*','Drop photo here or click to upload (JPG, PNG, WebP)')}
+        <div class="prog-bar" id="galProg"><div class="prog-fill" id="galProgFill"></div></div>
+      </div>
+      <div class="af"><label>— OR — Photo URL</label>
+        <input id="f-image" value="${v(d,'image')}" placeholder="https://…/photo.jpg" oninput="prevImg(this.value,'galImgPrev');updateGP()"/>
+        <div class="ip-wrap${d?.image?' show':''}" id="galImgPrev"><img src="${v(d,'image')}" alt="preview"/></div>
+      </div>
+      <div class="af"><label>Gradient Background (used when no photo)</label>
+        <input id="f-bg" value="${v(d,'bg','linear-gradient(135deg,#16803C,#22c55e)')}" placeholder="linear-gradient(135deg,#16803C,#1d4ed8)" oninput="updateGP()"/>
+        <div class="gp-prev" id="gradPrev" style="background:${v(d,'bg','linear-gradient(135deg,#16803C,#22c55e)')}"><span id="gpLabel">${v(d,'label','Label')}</span></div>
+        <p class="af-hint">E.g. linear-gradient(135deg,#16803C,#1d4ed8)</p>
+      </div>`;
+
+    case 'team':return `
+      <div class="af2">
+        <div class="af"><label>Full Name *</label><input id="f-name" value="${v(d,'name')}" placeholder="Jean-Pierre Nkurunziza"/></div>
+        <div class="af"><label>Role / Position *</label><input id="f-role" value="${v(d,'role')}" placeholder="Founder & Editor-in-Chief"/></div>
+      </div>
+      <div class="af"><label>Biography *</label><textarea id="f-bio" rows="4" placeholder="Brief professional biography…">${v(d,'bio')}</textarea></div>
+      <div class="af"><label>Photo Upload</label>
+        ${ddZone('teamFileInput','image/*','Drop photo here or click to upload')}
+        <div class="prog-bar" id="teamProg"><div class="prog-fill" id="teamProgFill"></div></div>
+      </div>
+      <div class="af"><label>— OR — Photo URL</label>
+        <input id="f-image" value="${v(d,'image')}" placeholder="https://…/photo.jpg" oninput="prevImg(this.value,'teamImgPrev')"/>
+        <div class="ip-wrap${d?.image?' show':''}" id="teamImgPrev"><img src="${v(d,'image')}" alt="preview"/></div>
+      </div>
+      <div class="af"><label>Avatar Gradient (used when no photo)</label>
+        <input id="f-grad" value="${v(d,'grad','linear-gradient(135deg,#16803C,#1d4ed8)')}" placeholder="linear-gradient(135deg,#16803C,#1d4ed8)"/>
+      </div>
+      <div class="af3">
+        <div class="af"><label>Email</label><input id="f-email" value="${v(d,'email')}" type="email" placeholder="name@eduupdates.rw"/></div>
+        <div class="af"><label>Twitter / X URL</label><input id="f-twitter" value="${v(d,'twitter')}" placeholder="https://twitter.com/…"/></div>
+        <div class="af"><label>LinkedIn URL</label><input id="f-linkedin" value="${v(d,'linkedin')}" placeholder="https://linkedin.com/in/…"/></div>
+      </div>`;
+
+    default:return '<p>Unknown type</p>';
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// FORM HELPERS
+// ─────────────────────────────────────────────────────
+function prevImg(url,wrapId){
+  const w=g(wrapId);if(!w)return;
+  const img=w.querySelector('img');
+  if(url){w.classList.add('show');if(img){img.src=url;img.onerror=()=>w.classList.remove('show');}}
+  else w.classList.remove('show');
+}
+function updateGP(){
+  const p=g('gradPrev');if(!p)return;
+  const bg=gv('f-bg');const lbl=g('gpLabel');const li=g('f-label');
+  if(bg)p.style.background=bg;
+  if(lbl&&li)lbl.textContent=li.value||'Label';
+}
+function onYtInput(val){
+  const id=extractYtId(val);
+  const prev=g('ytPrev');const frame=g('ytFrame');
+  if(id&&prev&&frame){frame.src=`https://www.youtube.com/embed/${id}?rel=0`;prev.classList.add('show');}
+  else if(prev)prev.classList.remove('show');
+}
+function initYtPrev(){const el=g('f-ytUrl');if(el&&el.value)onYtInput(el.value);}
+
+// Drag & Drop file handler
+function handleDrop(evt,inputId){
+  evt.preventDefault();
+  evt.currentTarget.classList.remove('drag-over');
+  const file=evt.dataTransfer.files[0];
+  if(file){const inp=g(inputId);if(inp){const dt=new DataTransfer();dt.items.add(file);inp.files=dt.files;handleFile({target:inp},inputId);}}
+}
+async function handleFile(evt,inputId){
+  const file=evt.target.files[0];if(!file)return;
+  // Show local preview
+  if(file.type.startsWith('image/')){
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const map={galFileInput:'galImgPrev',teamFileInput:'teamImgPrev'};
+      const wid=map[inputId];if(wid){const w=g(wid);if(w){const img=w.querySelector('img');if(img)img.src=e.target.result;w.classList.add('show');}}}; reader.readAsDataURL(file);
+  }
+  if(file.type==='application/pdf'){
+    const pdfPrev=g('pdfPrev');
+    if(pdfPrev){pdfPrev.classList.add('show');const info=pdfPrev.querySelector('.pdf-prev-info');if(info)info.innerHTML=`${file.name}<span>${(file.size/1024).toFixed(1)} KB</span>`;}
+  }
+  // Try upload to XAMPP
+  if(token&&token!=='offline'){
+    const folder=inputId==='galFileInput'?'gallery':inputId==='teamFileInput'?'team':inputId==='pdfFileInput'?'resources':'news';
+    const prog=g(folder==='gallery'?'galProg':folder==='resources'?'pdfProg':'teamProg');
+    const fill=g(folder==='gallery'?'galProgFill':folder==='resources'?'pdfProgFill':'teamProgFill');
+    if(prog){prog.classList.add('show');if(fill)fill.style.width='40%';}
+    try{
+      const form=new FormData();form.append('file',file);
+      const h={};if(token&&token!=='offline')h['Authorization']=`Bearer ${token}`;
+      const r=await fetch(`${API}/upload?folder=${folder}`,{method:'POST',headers:h,body:form});
+      const data=await r.json();
+      if(data.ok){
+        if(fill)fill.style.width='100%';
+        setTimeout(()=>{if(prog)prog.classList.remove('show');},800);
+        // Store URL in appropriate hidden field
+        if(folder==='gallery'||folder==='team'||folder==='news'){
+          const fi=g('f-image');if(fi){fi.value=data.url;prevImg(data.url,folder==='gallery'?'galImgPrev':'teamImgPrev');}
+        }
+        if(folder==='resources'){const fi=g('f-pdfUrl');if(fi)fi.value=data.url;}
+        toast(`Uploaded: ${file.name}`,'success');
+      }
+    }catch{if(fill)fill.style.width='0%';if(prog)prog.classList.remove('show');}
+  } else {
+    // Offline: use object URL
+    const objUrl=URL.createObjectURL(file);
+    if(inputId==='galFileInput'){const fi=g('f-image');if(fi)fi.value=objUrl;}
+    if(inputId==='teamFileInput'){const fi=g('f-image');if(fi)fi.value=objUrl;}
+    if(inputId==='pdfFileInput'){const fi=g('f-pdfUrl');if(fi)fi.value=objUrl;}
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// SAVE MODAL
+// ─────────────────────────────────────────────────────
+async function saveModal(){
+  const btn=g('modalSaveBtn');btn.textContent='Saving…';btn.disabled=true;
+  try{
+    const payload=collectForm(modalType);
+    if(!payload){btn.textContent='💾 Save';btn.disabled=false;return;}
+    let saved=false;
+    if(token!=='offline'){
+      const epMap={news:'news',videos:'videos',scholarships:'scholarships',resources:'resources',gallery:'gallery',team:'team'};
+      const ep=epMap[modalType];
+      const res=modalId
+        ?await apiFetch(`${ep}?id=${modalId}`,{method:'PUT',body:JSON.stringify(payload)})
+        :await apiFetch(ep,{method:'POST',body:JSON.stringify(payload)});
+      if(res?.ok||res?.id)saved=true;
+    }
+    if(!saved){
+      if(modalId){const idx=store[modalType].findIndex(r=>r.id==modalId);if(idx!==-1)store[modalType][idx]={...store[modalType][idx],...payload};}
+      else store[modalType].push({id:nextId(store[modalType]),...payload});
+    }
+    updateCounts();renderTbl(modalType);renderHome();
+    if(modalType==='team')renderTeam();
+    if(modalType==='gallery')renderGallery();
+    toast('Saved ✓','success');closeModal();
+  }catch(e){
+    const payload=collectForm(modalType);
+    if(payload){
+      if(modalId){const idx=store[modalType].findIndex(r=>r.id==modalId);if(idx!==-1)store[modalType][idx]={...store[modalType][idx],...payload};}
+      else store[modalType].push({id:nextId(store[modalType]),...payload});
+      updateCounts();renderTbl(modalType);renderHome();
+      if(modalType==='team')renderTeam();
+    }
+    toast('Saved locally ✓','success');closeModal();
+  }finally{btn.textContent='💾 Save';btn.disabled=false;}
+}
+
+function collectForm(type){
+  switch(type){
+    case 'news':{
+      const title=gv('f-title'),excerpt=gv('f-excerpt'),body=gv('f-body');
+      if(!title||!excerpt||!body){toast('Title, Excerpt and Body are required','error');return null;}
+      return{title,excerpt,body,tag:gv('f-tag'),tagColor:gv('f-tagColor')||'#16803C',
+        source:gv('f-source'),date:gv('f-date'),province:gv('f-province'),
+        readTime:gv('f-readTime')||'3 min read',image:gv('f-image')||null,
+        linkUrl:gv('f-linkUrl')||null,linkLabel:gv('f-linkLabel')||'Read More',
+        featured:g('f-featured')?.checked?1:0};}
+    case 'videos':{
+      const rawUrl=gv('f-ytUrl');const ytId=extractYtId(rawUrl)||rawUrl;const title=gv('f-title');
+      if(!ytId||!title){toast('YouTube URL/ID and Title are required','error');return null;}
+      return{ytId,title,description:gv('f-description'),category:gv('f-category'),
+        duration:gv('f-duration'),views:gv('f-views')||'0',date:gv('f-date'),
+        featured:g('f-featured')?.checked?1:0};}
+    case 'scholarships':{
+      const title=gv('f-title'),provider=gv('f-provider'),deadline=gv('f-deadline');
+      if(!title||!provider||!deadline){toast('Title, Provider and Deadline are required','error');return null;}
+      return{title,description:gv('f-description'),eligibility:gv('f-eligibility'),provider,
+        country:gv('f-country')||'Rwanda',deadline,level:gv('f-level'),
+        status:gv('f-status')||'Open',amount:gv('f-amount'),
+        applyUrl:gv('f-applyUrl')||null,image:gv('f-image')||null};}
+    case 'resources':{
+      const title=gv('f-title'),desc=gv('f-desc');
+      if(!title||!desc){toast('Title and Description are required','error');return null;}
+      return{title,desc,description:desc,category:gv('f-category')||'General',
+        icon:gv('f-icon')||'📖',count:gv('f-count'),
+        color:gv('f-color')||'#16803C',colorPale:gv('f-colorPale')||'#dcfce7',
+        pdfUrl:gv('f-pdfUrl')||null,coverImage:gv('f-coverImage')||null};}
+    case 'gallery':{
+      const label=gv('f-label');
+      if(!label){toast('Label is required','error');return null;}
+      return{label,caption:gv('f-caption'),span:parseInt(g('f-span')?.value)||1,
+        image:gv('f-image')||null,bg:gv('f-bg')||'linear-gradient(135deg,#0f172a,#1e293b)'};}
+    case 'team':{
+      const name=gv('f-name'),role=gv('f-role'),bio=gv('f-bio');
+      if(!name||!role||!bio){toast('Name, Role and Bio are required','error');return null;}
+      return{name,role,bio,image:gv('f-image')||null,grad:gv('f-grad')||'linear-gradient(135deg,#16803C,#1d4ed8)',
+        email:gv('f-email'),twitter:gv('f-twitter'),linkedin:gv('f-linkedin')};}
+    default:return null;
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// DELETE
+// ─────────────────────────────────────────────────────
+async function delItem(type,id,email=''){
+  if(!confirm(`Delete this ${TYPE_LABELS[type]||type}? This cannot be undone.`))return;
+  try{
+    const epMap={news:'news',videos:'videos',scholarships:'scholarships',resources:'resources',gallery:'gallery',team:'team',contacts:'contacts'};
+    if(type==='subscribers')await apiFetch('subscribers',{method:'DELETE',body:JSON.stringify({email})});
+    else if(epMap[type])await apiFetch(`${epMap[type]}?id=${id}`,{method:'DELETE'});
+  }catch{}
+  store[type]=store[type].filter(r=>r.id!=id);
+  updateCounts();renderTbl(type);renderHome();
+  if(type==='team')renderTeam();if(type==='gallery')renderGallery();
+  toast('Deleted ✓','success');
+}
+
+// ─────────────────────────────────────────────────────
+// MESSAGE MODAL
+// ─────────────────────────────────────────────────────
+function openMsg(id){
+  const msg=store.contacts.find(c=>c.id==id);if(!msg)return;
+  g('msgTitle').textContent=`From: ${esc(msg.name||'')}`;
+  g('msgBody').innerHTML=`
+    <div class="af2" style="margin-bottom:16px">
+      <div class="af"><label>From</label><div class="amsg-f">${esc(msg.name||'')}</div></div>
+      <div class="af"><label>Email</label><div class="amsg-f"><a href="mailto:${esc(msg.email||'')}" style="color:var(--ac)">${esc(msg.email||'')}</a></div></div>
+    </div>
+    ${msg.phone?`<div class="af" style="margin-bottom:16px"><label>Phone</label><div class="amsg-f"><a href="tel:${esc(msg.phone)}">${esc(msg.phone)}</a></div></div>`:''}
+    <div class="af" style="margin-bottom:16px"><label>Subject</label><div class="amsg-f" style="font-weight:700">${esc(msg.subject||'—')}</div></div>
+    <div class="af"><label>Message</label><div class="amsg-f" style="min-height:130px;white-space:pre-wrap;line-height:1.78">${esc(msg.message||'')}</div></div>
+    <p style="font-size:12px;color:#94a3b8;margin-top:14px">Received: ${(msg.submitted_at||'').slice(0,16)||'—'}</p>`;
+  g('msgDelBtn').onclick=()=>{delItem('contacts',id);closeMsgModal();};
+  g('msgModal').classList.add('open');
+  msg.is_read=true;
+  apiFetch(`contacts?id=${id}`,{method:'PUT'}).catch(()=>{});
+}
+function closeMsgModal(){g('msgModal').classList.remove('open');}
+
+// ─────────────────────────────────────────────────────
+// STATS
+// ─────────────────────────────────────────────────────
+async function saveStats(){
+  const payload={
+    subscribers:gv('st-subscribers'),videos:gv('st-videos'),
+    provinces:parseInt(g('st-provinces')?.value)||5,
+    schools:parseInt(g('st-schools')?.value)||0,
+    scholarships:parseInt(g('st-scholarships')?.value)||0,
+  };
+  Object.assign(store.stats,payload);
+  syncStats();renderImpactStats();
+  try{
+    const r=await apiFetch('stats',{method:'PUT',body:JSON.stringify(payload)});
+    toast(r?.ok?'Stats updated ✓':'Saved locally ✓','success');
+  }catch{toast('Saved locally ✓','success');}
+}
+</script>
+</body>
+</html>

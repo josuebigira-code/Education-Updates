@@ -1,0 +1,10 @@
+{
+  "name": "eduupdates-rwanda",
+  "version": "1.0.0",
+  "scripts": {
+    "install-backend": "cd backend && npm install",
+    "build": "npm run install-backend",
+    "start": "cd backend && node index.js",
+    "migrate": "cd backend && npm run migrate"
+  }
+}
